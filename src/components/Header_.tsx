@@ -1,5 +1,5 @@
 import React from 'react';
-import s from "../pages/Home.module.css";
+import s from '../scss/Header_.module.scss'
 import {Layout, Menu} from "antd";
 
 const { Header } = Layout;

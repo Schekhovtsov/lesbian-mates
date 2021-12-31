@@ -1,17 +1,23 @@
 import React from 'react';
-import s from './Home.module.css'
-import { Layout } from 'antd';
-import Header_ from '../components/Header_';
-import Content_ from '../components/Content_';
-import Footer_ from '../components/Footer_';
+import s from '../scss/App.module.scss'
+import {useAppDispatch, useAppSelector} from "../hooks/redux";
+import {girlsSlice} from "../store/reducers/GirlsSlice";
 
 const Home = () => {
+
+    const {count} = useAppSelector(state => state.girlsReducer);
+    const {increment} = girlsSlice.actions;
+    const dispatch = useAppDispatch();
+
     return (
-        <Layout className="layout">
-            <Header_ />
-            <Content_ />
-            <Footer_ />
-        </Layout>
+        <div>
+
+            <h1>Счётчик: {count}</h1>
+            <button onClick={() => dispatch(increment(1))}>
+                Увеличить счетчик
+            </button>
+
+        </div>
     );
 };
 
