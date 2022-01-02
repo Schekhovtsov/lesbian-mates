@@ -1,27 +1,23 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {IGirls} from "../../models/IGirls";
+import { IGirl } from "../../models/IGirl";
+
 
 interface IGirlsState {
-    girls: IGirls[];
-    isLoading: boolean;
-    error: string;
-    count: number;
+    girls: IGirl[];
 }
 
 const initialState: IGirlsState = {
-    girls: [],
-    isLoading: false,
-    error: '',
-    count: 0,
+    girls: [
+        {name: 'Veronica Leal'},
+        {name: 'Lilu Moon'}
+    ],
 }
 
 export const girlsSlice = createSlice({
     name: 'girls',
     initialState,
     reducers: {
-        increment(state, action: PayloadAction<number>) {
-            state.count += action.payload
-        }
+
     }
 })
 

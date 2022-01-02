@@ -14,7 +14,10 @@
     "@types/react-redux": "^7.1.21",
     "antd": "^4.18.2",
     "axios": "^0.24.0",
+    "cheerio": "^1.0.0-rc.10",
     "classnames": "^2.3.1",
+    "pornhub.js": "^0.2.4",
+    "puppeteer": "^13.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",
@@ -23,6 +26,7 @@
     "thunk": "^0.0.1",
     "typescript": "^4.5.4",
     "typescript-plugin-css-modules": "^3.4.0",
+    "url": "^0.11.0",
     "web-vitals": "^2.1.2"
   },
   "compilerOptions": {

@@ -1,5 +1,10 @@
 {
   "compilerOptions": {
+/*    "paths": {
+      "url": [
+        "./url.ts"
+      ]
+    },*/
     "target": "es5",
     "lib": [
       "dom",

@@ -1,21 +1,38 @@
-import React from 'react';
-import s from '../scss/App.module.scss'
+import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../hooks/redux";
-import {girlsSlice} from "../store/reducers/GirlsSlice";
+import { videosSlice } from '../store/reducers/VideosSlice';
+import {fetchVideos} from "../store/actions/ActionCreators";
+import Selector from '../components/Selector';
 
 const Home = () => {
-
-    const {count} = useAppSelector(state => state.girlsReducer);
-    const {increment} = girlsSlice.actions;
     const dispatch = useAppDispatch();
+
+    const {videos, isLoading: videosIsLoading, error: videosError} =
+        useAppSelector(state => state.videosReducer);
+    const {girls} = useAppSelector(state => state.girlsReducer);
+
+    useEffect(() => {
+        //dispatch(fetchVideos())
+    }, [])
 
     return (
         <div>
 
-            <h1>Счётчик: {count}</h1>
-            <button onClick={() => dispatch(increment(1))}>
-                Увеличить счетчик
-            </button>
+            { videosError && <div>{videosError}</div> }
+
+            <Selector girls={girls}/>
+
+            {
+                videos.map(obj =>
+                    <div><strong>Title:</strong> {obj.title}<br />
+                        <strong>Keywords:</strong> {obj.keywords}<br /><br /></div>
+                )
+            }
+
+            {   }
+            {/*{JSON.stringify(girls, null, 2)}*/}
+
+
 
         </div>
     );

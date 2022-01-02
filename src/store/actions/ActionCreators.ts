@@ -1,0 +1,26 @@
+import axios from "axios";
+import {AppDispatch} from "../store";
+import { girlsSlice } from "../reducers/GirlsSlice";
+import { videosSlice } from "../reducers/VideosSlice";
+import {IServerResponse, IVideo} from "../../models/IVideo";
+
+const base_url = 'https://www.eporner.com/api/v2/video/search/';
+
+export const fetchVideos = () => async (dispatch: AppDispatch) => {
+
+    try {
+        dispatch(videosSlice.actions.videosFetching)
+        const response = await axios.get<IServerResponse>(`${base_url}?&format=json`,
+            {
+                params: {
+                    query: 'lesbians-lesbians-veronica-leal-lilu-moon',
+                    //per_page: 2,
+                },
+            })
+        dispatch(videosSlice.actions.videosFetchingSuccess(response.data.videos))
+
+    } catch (e) {
+        dispatch(videosSlice.actions.videosFetchingError)
+    }
+}
+
