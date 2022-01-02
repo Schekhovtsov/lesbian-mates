@@ -3,12 +3,16 @@ import { Select, Button, Form } from 'antd';
 import s from '../scss/Selector.module.scss'
 
 import { IGirl } from '../models/IGirl';
+import {useAppDispatch} from "../hooks/redux";
+import {fetchVideos} from "../store/actions/ActionCreators";
 
 interface ISelectorProps {
     girls: IGirl[]
 }
 
 const Selector = ( { girls }: ISelectorProps ) => {
+
+    const dispatch = useAppDispatch();
 
     const { Option } = Select;
 
@@ -26,17 +30,17 @@ const Selector = ( { girls }: ISelectorProps ) => {
         console.log(formattedValues)
     }
 
+    const onFinish = (values: { selected: string[] }) => {
 
-
-
-    const onFinish = (values: Array<string>) => {
-        console.log('Received values of form: ', values);
-
-        const formattedValues = values.map(name =>
+        const formattedValues = values.selected.map((name: string) =>
             name
                 .toLowerCase()
-                .replace(/\s/g, '-'))
-        console.log(formattedValues)
+                .replace(/\s/g, '-')
+                );
+
+        const girls = formattedValues.toString().replace(/,/g, '-');
+        dispatch(fetchVideos(girls))
+
     };
 
     return (
@@ -50,14 +54,14 @@ const Selector = ( { girls }: ISelectorProps ) => {
                     onFinish={onFinish}
                 >
 
-
                     <Form.Item
-                        name="selected-girls"
+                        name="selected"
                         rules={[
                             {
                                 required: true,
-                                message: 'Please select your favourite colors!',
+                                message: 'Please select minimum 2 girls',
                                 type: 'array',
+                                min: 2,
                             },
                         ]}
                     >
@@ -75,11 +79,9 @@ const Selector = ( { girls }: ISelectorProps ) => {
                         </Select>
                     </Form.Item>
 
-
-
                     <Form.Item>
                         <Button size="large" type="primary" htmlType="submit">
-                            Submit
+                            Search
                         </Button>
                     </Form.Item>
 

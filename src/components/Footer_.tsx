@@ -6,7 +6,7 @@ const { Footer } = Layout;
 const Footer_ = () => {
     return (
         <Footer style={{ textAlign: 'center' }}>
-            lesbian-mates © 2022 Created by Schekhovtsov
+            mates © 2022 Created by Schekhovtsov
         </Footer>
     );
 };

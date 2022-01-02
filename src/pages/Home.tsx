@@ -5,7 +5,7 @@ import {fetchVideos} from "../store/actions/ActionCreators";
 import Selector from '../components/Selector';
 
 const Home = () => {
-    const dispatch = useAppDispatch();
+
 
     const {videos, isLoading: videosIsLoading, error: videosError} =
         useAppSelector(state => state.videosReducer);
@@ -14,6 +14,8 @@ const Home = () => {
     useEffect(() => {
         //dispatch(fetchVideos())
     }, [])
+
+    console.log(videos)
 
     return (
         <div>
