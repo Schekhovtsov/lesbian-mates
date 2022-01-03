@@ -16,23 +16,28 @@ const Videos: FC<VideosProps> = ({videos}) => {
         <div>
 
             {
-                videos.length > 0 &&
-                (<Row className={app.row}>
-                    <Col className={app.col} xs={24} xl={24}>
-                        <h1>Results:</h1>
+                videos.length > 0
+                    ? (<Row className={app.row}>
+                        <Col className={app.col} xs={24} xl={24}>
+                            <h1>Results:</h1>
+                        </Col>
+                    </Row>)
+                    : <Col className={app.col} xs={24} xl={24}>
+                        <h1>Videos not found</h1>
                     </Col>
-                </Row>)
             }
 
             <Row className={app.row} gutter={[14, 8]}>
                 {
                     videos.map(obj =>
                         (
-                            <Col className={app.col} xs={24} xl={6}>
+                            <Col className={app.col} xs={24} sm={12} md={8} xl={6} key={obj.id}>
                                 <div className={module.videoBlock}>
                                     <div className={module.content}>
                                         <div className={module.title}>{obj.title}</div>
-                                        <div className={module.video}>#</div>
+                                        <div className={module.video}>
+                                            <img src={obj.default_thumb.src} alt={obj.title} />
+                                        </div>
                                     </div>
                                 </div>
                             </Col>

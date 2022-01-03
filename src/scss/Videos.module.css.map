@@ -1,6 +1,6 @@
 {
 "version": 3,
-"mappings": "AAEA,WAAW;EAET,MAAM,EAAE,KAAK;EACb,MAAM,EAAE,cAAc;EACtB,OAAO,EAAE,IAAI;EAUX,2BAAM;IAEJ,MAAM,EAAE,KAAK",
+"mappings": "AAEA,WAAW;EAGT,MAAM,EAAE,cAAc;EACtB,OAAO,EAAE,IAAI;EAEb,oBAAS;IAGP,OAAO,EAAE,IAAI;IACb,cAAc,EAAE,MAAM;IAWpB,+BAAI;MACF,KAAK,EAAE,IAAI;MACX,UAAU,EAAE,IAAI",
 "sources": ["Videos.module.scss"],
 "names": [],
 "file": "Videos.module.css"

@@ -9,7 +9,9 @@ interface IGirlsState {
 const initialState: IGirlsState = {
     girls: [
         {name: 'Veronica Leal'},
-        {name: 'Lilu Moon'}
+        {name: 'Lilu Moon'},
+        {name: 'Nadia Besinger'},
+        {name: 'Zazie Skymm'}
     ],
 }
 

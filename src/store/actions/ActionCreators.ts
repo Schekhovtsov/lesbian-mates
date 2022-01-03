@@ -10,6 +10,7 @@ export const fetchVideos = (girls: string) => async (dispatch: AppDispatch) => {
 
     try {
         dispatch(videosSlice.actions.videosFetching)
+
         const response = await axios.get<IServerResponse>(`${base_url}?&format=json`,
             {
                 params: {
@@ -17,6 +18,7 @@ export const fetchVideos = (girls: string) => async (dispatch: AppDispatch) => {
                     //per_page: 2,
                 },
             })
+
         dispatch(videosSlice.actions.videosFetchingSuccess(response.data.videos))
 
     } catch (e) {

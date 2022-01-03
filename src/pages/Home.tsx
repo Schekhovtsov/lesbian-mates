@@ -13,6 +13,8 @@ const Home = () => {
 
     }, [])
 
+
+
     //console.log(videos)
 
     return (
@@ -21,6 +23,9 @@ const Home = () => {
             { videosError && <div>{videosError}</div> }
 
             <Selector girls={girls}/>
+
+
+
 
             <Videos videos={videos}/>
 
