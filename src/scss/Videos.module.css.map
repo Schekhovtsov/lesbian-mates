@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAEA,WAAW;EAET,MAAM,EAAE,KAAK;EACb,MAAM,EAAE,cAAc;EACtB,OAAO,EAAE,IAAI;EAUX,2BAAM;IAEJ,MAAM,EAAE,KAAK",
+"sources": ["Videos.module.scss"],
+"names": [],
+"file": "Videos.module.css"
+}

@@ -1,7 +1,12 @@
+.header {
+  background: #001529; }
+  .header .headerContent {
+    margin: 0 auto; }
+
 .content {
   min-height: 280px;
   background: #FFF;
-  margin: 20px 50px;
+  margin: 20px auto;
   padding: 30px; }
 
 /*# sourceMappingURL=App.module.css.map */

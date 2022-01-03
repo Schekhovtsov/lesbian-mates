@@ -1,21 +1,19 @@
 import React, {useEffect} from 'react';
-import {useAppDispatch, useAppSelector} from "../hooks/redux";
-import { videosSlice } from '../store/reducers/VideosSlice';
-import {fetchVideos} from "../store/actions/ActionCreators";
+import {useAppSelector} from "../hooks/redux";
 import Selector from '../components/Selector';
+import Videos from '../components/Videos';
 
 const Home = () => {
-
 
     const {videos, isLoading: videosIsLoading, error: videosError} =
         useAppSelector(state => state.videosReducer);
     const {girls} = useAppSelector(state => state.girlsReducer);
 
     useEffect(() => {
-        //dispatch(fetchVideos())
+
     }, [])
 
-    console.log(videos)
+    //console.log(videos)
 
     return (
         <div>
@@ -24,12 +22,9 @@ const Home = () => {
 
             <Selector girls={girls}/>
 
-            {
-                videos.map(obj =>
-                    <div><strong>Title:</strong> {obj.title}<br />
-                        <strong>Keywords:</strong> {obj.keywords}<br /><br /></div>
-                )
-            }
+            <Videos videos={videos}/>
+
+
 
             {   }
             {/*{JSON.stringify(girls, null, 2)}*/}

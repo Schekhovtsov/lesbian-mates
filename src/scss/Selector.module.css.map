@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": "AAAA,WAAW;EACT,OAAO,EAAE,IAAI;EACb,cAAc,EAAE,GAAG",
-"sources": ["Selector.module.scss"],
-"names": [],
-"file": "Selector.module.css"
-}

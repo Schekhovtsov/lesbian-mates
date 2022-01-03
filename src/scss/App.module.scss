@@ -1,6 +1,25 @@
+@import 'variables';
+
+.col {
+  //background-color: #6cffc5;
+}
+
+.row {
+  //background-color: darksalmon;
+}
+
+.header {
+
+  background: $headerColor;
+
+  .headerContent {
+    margin: 0 auto;
+  }
+}
+
 .content {
   min-height: 280px;
   background: #FFF;
-  margin: 20px 50px;
+  margin: 20px auto;
   padding: 30px;
 }

@@ -1,7 +1,7 @@
 {
 "version": 3,
-"mappings": "AAAA,QAAS;EACP,UAAU,EAAE,KAAK;EACjB,UAAU,EAAE,IAAI;EAChB,MAAM,EAAE,SAAS;EACjB,OAAO,EAAE,IAAI",
-"sources": ["App.module.scss"],
+"mappings": "AAUA,OAAQ;EAEN,UAAU,ECZE,OAAO;EDcnB,sBAAe;IACb,MAAM,EAAE,MAAM;;AAIlB,QAAS;EACP,UAAU,EAAE,KAAK;EACjB,UAAU,EAAE,IAAI;EAChB,MAAM,EAAE,SAAS;EACjB,OAAO,EAAE,IAAI",
+"sources": ["App.module.scss","variables.scss"],
 "names": [],
 "file": "App.module.css"
 }
