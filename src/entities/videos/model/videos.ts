@@ -17,7 +17,10 @@ export interface IVideo {
         height: number,
         src: string
     },
-    embed: string
+    length_min: string,
+    rate: number,
+    views: number,
+    added: string,
 }
 
 interface IVideosState {

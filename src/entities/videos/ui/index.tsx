@@ -47,10 +47,22 @@ const VideosUI: FC<VideosProps> = ({videos}) => {
                                         <div className={module.title}>
                                             {titleSlice(obj.title)}
                                         </div>
-                                        <div className={module.video}>
-                                            &nbsp;
-                                            {console.log(obj.embed)}
+                                        <div style={{backgroundImage: "url(" + obj.default_thumb.src + ")"}}
+                                            className={module.video}>
+                                            <div className={module.videoCornerInfo}>
+                                                <div className={module.cornerBlock}>
+                                                    {obj.length_min}
+                                                </div>
+                                                <div className={module.cornerBlock}>
+                                                    👁 {obj.views}
+                                                </div>
+                                            </div>
                                             {/*<img src={obj.default_thumb.src} alt={obj.title} />*/}
+
+                                        </div>
+                                        <div className={module.info}>
+                                            <div>Added: {obj.added.slice(0, 10)}</div>
+                                            <div>Views: {obj.views}</div>
                                         </div>
                                         <div className={module.link}>
                                             <a href={obj.url} target='_blank'>
