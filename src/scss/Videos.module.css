@@ -1,11 +1,21 @@
 .videoBlock {
-  border: 2px gray solid;
+  background-color: #fff;
+  border: 1px gray solid;
   padding: 10px; }
   .videoBlock .content {
     display: flex;
     flex-direction: column; }
-    .videoBlock .content .video img {
+    .videoBlock .content .title {
+      font-size: 14pt;
+      min-height: 70px;
+      text-overflow: ellipsis; }
+    .videoBlock .content .video {
+      background-color: greenyellow;
       width: 100%;
-      margin-top: 20px; }
+      height: 150px; }
+      .videoBlock .content .video img {
+        width: 100%; }
+    .videoBlock .content .link {
+      margin: 10px 0; }
 
 /*# sourceMappingURL=Videos.module.css.map */

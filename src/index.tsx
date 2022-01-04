@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import App from './App';
 import { setupStore } from './store/store';
 import {BrowserRouter} from "react-router-dom";
+import App from './App';
 
 const store = setupStore();
 
