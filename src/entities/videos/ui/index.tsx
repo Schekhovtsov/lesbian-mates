@@ -1,13 +1,13 @@
 import React, {FC} from 'react';
 import {Button, Col, Row} from "antd";
-import module from "../styles/Videos.module.scss";
-import {IVideo} from "../models/IVideo";
+import module from "./styles.module.scss";
+import {IVideo} from "../model";
 
 interface VideosProps {
     videos: IVideo[],
 }
 
-const Videos: FC<VideosProps> = ({videos}) => {
+const VideosUI: FC<VideosProps> = ({videos}) => {
 
     const titleSlice = (title: string): string => {
         let sliced = title.slice(0, 47);
@@ -20,15 +20,15 @@ const Videos: FC<VideosProps> = ({videos}) => {
     return (
         <div>
             {
-                videos
+                (videos.length > 0)
                     ? (<Row className='row'>
                         <Col className='col' xs={24} xl={24}>
                             <h1>Results:</h1>
                         </Col>
                     </Row>)
-                    : <Col className='col' xs={24} xl={24}>
+                    : null /*<Col className='col' xs={24} xl={24}>
                         <h1>Videos not found</h1>
-                    </Col>
+                    </Col>*/
             }
 
             <Row className='row' gutter={[14, 8]}>
@@ -59,4 +59,4 @@ const Videos: FC<VideosProps> = ({videos}) => {
     );
 };
 
-export default Videos;
+export default VideosUI;

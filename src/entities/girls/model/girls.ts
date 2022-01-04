@@ -1,6 +1,8 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import { IGirl } from "../../models/IGirl";
 
+export interface IGirl {
+    name: string
+}
 
 interface IGirlsState {
     girls: IGirl[];
@@ -22,5 +24,3 @@ export const girlsSlice = createSlice({
 
     }
 })
-
-export default girlsSlice.reducer;

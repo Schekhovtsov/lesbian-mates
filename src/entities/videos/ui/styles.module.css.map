@@ -1,7 +1,7 @@
 {
 "version": 3,
 "mappings": "AAEA,WAAW;EACT,gBAAgB,EAAE,IAAI;EACtB,MAAM,EAAE,cAAc;EACtB,OAAO,EAAE,IAAI;EAEb,oBAAS;IAGP,OAAO,EAAE,IAAI;IACb,cAAc,EAAE,MAAM;IAEtB,2BAAO;MACL,SAAS,EAAE,IAAI;MACf,UAAU,EAAE,IAAI;MAEhB,aAAa,EAAE,QAAQ;IAGzB,2BAAM;MACJ,gBAAgB,EAAE,WAAW;MAC7B,KAAK,EAAE,IAAI;MACX,MAAM,EAAE,KAAK;MAEb,+BAAI;QACF,KAAK,EAAE,IAAI;IAIf,0BAAM;MACJ,MAAM,EAAE,MAAM",
-"sources": ["Videos.module.scss"],
+"sources": ["styles.module.scss"],
 "names": [],
-"file": "Videos.module.css"
+"file": "styles.module.css"
 }

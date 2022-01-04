@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
-import Selector from '../../components/Selector';
-import Videos from '../../components/Videos';
+import Videos from '../../entities/videos/ui';
+import Selector from '../../features/selector';
 
 const HomePage = () => {
 

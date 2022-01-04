@@ -1,10 +1,11 @@
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
-import girlsReducer from './reducers/GirlsSlice'
-import videosReducer from './reducers/VideosSlice'
+import { girlsSlice } from "../entities/girls/model";
+import {videosSlice} from "../entities/videos/model";
+
 
 const rootReducer = combineReducers({
-    girlsReducer,
-    videosReducer,
+    girlsReducer: girlsSlice.reducer,
+    videosReducer: videosSlice.reducer,
 })
 
 export const setupStore = () => {
