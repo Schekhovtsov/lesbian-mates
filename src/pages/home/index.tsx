@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import Videos from '../../entities/videos/ui';
-import Selector from '../../features/selector';
+import GirlsSelector from '../../features/girls-selector';
 
 const HomePage = () => {
 
@@ -12,7 +12,7 @@ const HomePage = () => {
     return (
         <div>
 
-            <Selector girls={girls}/>
+            <GirlsSelector girls={girls}/>
 
             { isLoading && <h1>Идёт загрузка</h1> }
             { videosError && <h1>{videosError}</h1> }

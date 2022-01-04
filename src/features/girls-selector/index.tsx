@@ -2,14 +2,14 @@ import React, {FC} from 'react';
 import {Select, Button, Form, Row, Col} from 'antd';
 
 import { IGirl } from '../../entities/girls';
-import { fetchVideos } from '../../entities/videos';
 import { useAppDispatch } from '../../hooks/redux';
+import {fetchVideos} from "../../shared/api";
 
 interface ISelectorProps {
     girls: IGirl[]
 }
 
-const Selector: FC<ISelectorProps> = ({girls}) => {
+const GirlsSelector: FC<ISelectorProps> = ({girls}) => {
 
     const dispatch = useAppDispatch();
 
@@ -58,13 +58,13 @@ const Selector: FC<ISelectorProps> = ({girls}) => {
                             rules={[
                                 {
                                     required: true,
-                                    message: 'Please select minimum 2 girls',
+                                    message: 'Please select minimum 1 girl',
                                     type: 'array',
-                                    min: 2,
+                                    min: 1,
                                 },
                             ]}
                         >
-                            <Select mode="multiple"
+                            <Select mode="tags"
                                     size="large"
                                     placeholder="Choose your girls">
 
@@ -93,4 +93,4 @@ const Selector: FC<ISelectorProps> = ({girls}) => {
     );
 };
 
-export default Selector;
+export default GirlsSelector;

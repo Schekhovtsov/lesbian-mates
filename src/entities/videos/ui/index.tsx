@@ -2,6 +2,9 @@ import React, {FC} from 'react';
 import {Button, Col, Row} from "antd";
 import module from "./styles.module.scss";
 import {IVideo} from "../model";
+import { Link } from 'react-router-dom';
+import cn from 'classnames';
+import VideosFilter from "../../../features/videos-filter";
 
 interface VideosProps {
     videos: IVideo[],
@@ -25,6 +28,9 @@ const VideosUI: FC<VideosProps> = ({videos}) => {
                         <Col className='col' xs={24} xl={24}>
                             <h1>Results:</h1>
                         </Col>
+                        <Col className='col' xs={24} xl={24}>
+                            <VideosFilter />
+                        </Col>
                     </Row>)
                     : null /*<Col className='col' xs={24} xl={24}>
                         <h1>Videos not found</h1>
@@ -35,7 +41,7 @@ const VideosUI: FC<VideosProps> = ({videos}) => {
                 {
                     videos && videos.map(obj =>
                         (
-                            <Col className='col' xs={24} sm={12} md={8} xl={6} key={obj.id}>
+                            <Col className={cn('col', module.videos)} xs={24} sm={12} md={8} xl={6} key={obj.id}>
                                 <div className={module.videoBlock}>
                                     <div className={module.content}>
                                         <div className={module.title}>
@@ -43,10 +49,13 @@ const VideosUI: FC<VideosProps> = ({videos}) => {
                                         </div>
                                         <div className={module.video}>
                                             &nbsp;
+                                            {console.log(obj.embed)}
                                             {/*<img src={obj.default_thumb.src} alt={obj.title} />*/}
                                         </div>
                                         <div className={module.link}>
-                                            <Button type='primary' block>Open video</Button>
+                                            <a href={obj.url} target='_blank'>
+                                                <Button type='primary' block>Open video</Button>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
