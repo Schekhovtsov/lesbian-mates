@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {Select, Button, Form, Row, Col} from 'antd';
-import app from '../scss/App.module.scss'
+
 
 import {IGirl} from '../models/IGirl';
 import {useAppDispatch} from "../hooks/redux";
@@ -47,8 +47,8 @@ const Selector: FC<ISelectorProps> = ({girls}) => {
 
         <div>
             <h1>Please, select</h1>
-                <Row className={app.row}>
-                    <Col className={app.col} xs={24} xl={24}>
+                <Row className='row'>
+                    <Col className='col' xs={24} xl={24}>
                         <Form
                             name="girls-form"
                             onFinish={onFinish}

@@ -3,7 +3,7 @@ import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import Selector from '../../components/Selector';
 import Videos from '../../components/Videos';
 
-const Home = () => {
+const HomePage = () => {
 
     const {videos, isLoading, error: videosError} =
         useAppSelector(state => state.videosReducer);
@@ -23,4 +23,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default HomePage;

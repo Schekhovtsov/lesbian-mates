@@ -1,3 +1,4 @@
+@import url(antd/dist/antd.css);
 .header {
   background: #001529; }
   .header .headerContent {
@@ -5,8 +6,7 @@
 
 .content {
   min-height: 280px;
-  background: #FFF;
   margin: 20px auto;
   padding: 30px; }
 
-/*# sourceMappingURL=App.module.css.map */
+/*# sourceMappingURL=index.css.map */
