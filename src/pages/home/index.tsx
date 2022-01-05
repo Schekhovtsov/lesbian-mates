@@ -7,6 +7,7 @@ const HomePage = () => {
 
     const {videos, isLoading, error: videosError} =
         useAppSelector(state => state.videosReducer);
+
     const {girls} = useAppSelector(state => state.girlsReducer);
 
     return (

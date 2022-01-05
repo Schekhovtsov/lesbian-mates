@@ -26,10 +26,16 @@ interface IVideosState {
     videos: IVideo[];
     isLoading: boolean;
     error: string;
+    searchQuery: string;
 }
 
-interface sortArgs {
+interface IFetchVideo {
     girls: string;
+    searchQuery?: string;
+}
+
+interface ISortArgs {
+    searchQuery: string;
     sortBy: string;
 }
 
@@ -37,13 +43,13 @@ const initialState: IVideosState = {
     videos: [],
     isLoading: false,
     error: '',
+    searchQuery: '',
 }
-
 
 
 export const fetchVideos = createAsyncThunk(
     'videos/fetchAll',
-    async (girls: string, thunkAPI) => {
+    async (girls:string, thunkAPI) => {
         try {
             const response = await videosAPI.getVideos(girls)
             return response.data.videos;
@@ -55,9 +61,9 @@ export const fetchVideos = createAsyncThunk(
 
 export const sortVideos = createAsyncThunk(
     'videos/sortVideos',
-    async (args: sortArgs, thunkAPI) => {
+    async (args: ISortArgs, thunkAPI) => {
         try {
-            const response = await videosAPI.sortVideos(args.girls, args.sortBy)
+            const response = await videosAPI.sortVideos(args.searchQuery, args.sortBy)
             return response.data.videos;
         }   catch(e) {
             return thunkAPI.rejectWithValue('Не удалось получить видео')
@@ -65,18 +71,19 @@ export const sortVideos = createAsyncThunk(
     }
 )
 
+
 export const videosSlice = createSlice({
     name: 'videos',
     initialState,
     reducers: {
-        // посмотреть как было в видео и по клику на кнопку сортировки делать диспатч.
-        // так же глянуть как в АПИ называется метод сортировки. возможно я опечатслся
+
     },
     extraReducers: {
-        [fetchVideos.fulfilled.type]: (state, action: PayloadAction<IVideo[]>) => {
+        [fetchVideos.fulfilled.type]: (state, action: any) => {
             state.isLoading = false;
             state.error = '';
             state.videos = action.payload;
+            state.searchQuery = action.meta.arg;
         },
         [fetchVideos.pending.type]: (state) => {
             state.isLoading = true;
@@ -85,5 +92,18 @@ export const videosSlice = createSlice({
             state.isLoading = false;
             state.error = action.payload;
         },
+        [sortVideos.fulfilled.type]: (state, action: PayloadAction<IVideo[]>) => {
+            state.isLoading = false;
+            state.error = '';
+            state.videos = action.payload;
+        },
+        [sortVideos.pending.type]: (state) => {
+            state.isLoading = true;
+        },
+        [sortVideos.rejected.type]: (state, action: PayloadAction<string>) => {
+            state.isLoading = false;
+            state.error = action.payload;
+        },
+
     }
 })

@@ -1,4 +1,6 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {fetchVideos, IVideo} from "../../videos";
+import {videosAPI} from "../../../shared/api";
 
 export interface IGirl {
     name: string
@@ -6,6 +8,7 @@ export interface IGirl {
 
 interface IGirlsState {
     girls: IGirl[];
+
 }
 
 const initialState: IGirlsState = {
@@ -15,12 +18,17 @@ const initialState: IGirlsState = {
         {name: 'Nadia Besinger'},
         {name: 'Zazie Skymm'}
     ],
+
 }
+
 
 export const girlsSlice = createSlice({
     name: 'girls',
     initialState,
     reducers: {
+
+    },
+    extraReducers: {
 
     }
 })

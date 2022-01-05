@@ -3,7 +3,7 @@ import {Select, Button, Form, Row, Col} from 'antd';
 
 import { IGirl } from '../../entities/girls';
 import { useAppDispatch } from '../../hooks/redux';
-import {fetchVideos} from "../../entities/videos";
+import { fetchVideos } from "../../entities/videos";
 
 interface ISelectorProps {
     girls: IGirl[]

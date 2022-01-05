@@ -1,8 +1,7 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC} from 'react';
 import {Button, Col, Row} from "antd";
 import module from "./styles.module.scss";
 import {IVideo} from "../model";
-import { Link } from 'react-router-dom';
 import cn from 'classnames';
 import VideosFilter from "../../../features/videos-filter";
 
@@ -32,16 +31,14 @@ const VideosUI: FC<VideosProps> = ({videos}) => {
         return sliced;
     }
 
-    const [imagesIsLoaded, setImagesIsLoaded] = useState(false);
-
     return (
         <div>
             {
                 (videos.length > 0)
                     ? (<Row className='row'>
-                        <Col className='col' xs={24} xl={24}>
+{/*                        <Col className='col' xs={24} xl={24}>
                             <h1>Results:</h1>
-                        </Col>
+                        </Col>*/}
                         <Col className='col' xs={24} xl={24}>
                             <VideosFilter />
                         </Col>
@@ -62,7 +59,7 @@ const VideosUI: FC<VideosProps> = ({videos}) => {
                                             {titleSlice(obj.title)}
                                         </div>
 
-                                        <div style={{backgroundImage: "url(" + obj.default_thumb.src + ")",
+                                        <div style={{backgroundImage: "url(" + {/*obj.default_thumb.src*/} + ")",
                                                     backgroundSize: "cover" }}
                                             className={module.video}>
 

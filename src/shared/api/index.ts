@@ -21,7 +21,7 @@ export const videosAPI = {
             {
                 params: {
                     query: `${girls}`,
-                    sort: sortBy,
+                    order: sortBy,
                 },
             })
     }
