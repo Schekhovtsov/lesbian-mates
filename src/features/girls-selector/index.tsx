@@ -3,7 +3,7 @@ import {Select, Button, Form, Row, Col} from 'antd';
 
 import { IGirl } from '../../entities/girls';
 import { useAppDispatch } from '../../hooks/redux';
-import {fetchVideos} from "../../shared/api";
+import {fetchVideos} from "../../entities/videos";
 
 interface ISelectorProps {
     girls: IGirl[]
@@ -26,7 +26,6 @@ const GirlsSelector: FC<ISelectorProps> = ({girls}) => {
             name
                 .toLowerCase()
                 .replace(/\s/g, '-'))
-        console.log(formattedValues)
     }
 
     const onFinish = (values: { selected: string[] }) => {

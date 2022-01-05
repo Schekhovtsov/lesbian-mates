@@ -1,6 +1,6 @@
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
-import { girlsSlice } from "../entities/girls/model";
-import {videosSlice} from "../entities/videos/model";
+import { girlsSlice } from "../entities/girls";
+import { videosSlice } from "../entities/videos/model";
 
 
 const rootReducer = combineReducers({

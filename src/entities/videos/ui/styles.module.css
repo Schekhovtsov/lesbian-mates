@@ -12,22 +12,19 @@
         min-height: 70px;
         text-overflow: ellipsis; }
       .videos .videoBlock .content .video {
-        background-color: greenyellow;
         width: 100%;
-        height: 150px;
+        height: 160px;
         display: flex;
-        align-items: flex-end; }
-        .videos .videoBlock .content .video .videoCornerInfo {
-          display: flex;
-          justify-content: space-between;
-          flex-direction: row; }
-          .videos .videoBlock .content .video .videoCornerInfo .cornerBlock {
-            padding: 5px;
-            margin: 0 0 5px 5px;
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white; }
-        .videos .videoBlock .content .video img {
-          width: 100%; }
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: end; }
+        .videos .videoBlock .content .video .cornerBlock {
+          padding: 5px;
+          margin: 0 0 5px 5px;
+          background-color: rgba(0, 0, 0, 0.5);
+          color: white; }
+      .videos .videoBlock .content img {
+        width: 100%; }
       .videos .videoBlock .content .info {
         display: flex;
         flex-direction: row;

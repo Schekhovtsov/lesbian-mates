@@ -1,6 +1,5 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import axios from "axios";
-import { fetchVideos } from "../../../shared/api";
+import {videosAPI} from "../../../shared/api";
 
 export interface IServerResponse {
     videos: IVideo[]
@@ -29,17 +28,49 @@ interface IVideosState {
     error: string;
 }
 
+interface sortArgs {
+    girls: string;
+    sortBy: string;
+}
+
 const initialState: IVideosState = {
     videos: [],
     isLoading: false,
     error: '',
 }
 
+
+
+export const fetchVideos = createAsyncThunk(
+    'videos/fetchAll',
+    async (girls: string, thunkAPI) => {
+        try {
+            const response = await videosAPI.getVideos(girls)
+            return response.data.videos;
+        }   catch(e) {
+            return thunkAPI.rejectWithValue('Не удалось получить видео')
+        }
+    }
+)
+
+export const sortVideos = createAsyncThunk(
+    'videos/sortVideos',
+    async (args: sortArgs, thunkAPI) => {
+        try {
+            const response = await videosAPI.sortVideos(args.girls, args.sortBy)
+            return response.data.videos;
+        }   catch(e) {
+            return thunkAPI.rejectWithValue('Не удалось получить видео')
+        }
+    }
+)
+
 export const videosSlice = createSlice({
     name: 'videos',
     initialState,
     reducers: {
-
+        // посмотреть как было в видео и по клику на кнопку сортировки делать диспатч.
+        // так же глянуть как в АПИ называется метод сортировки. возможно я опечатслся
     },
     extraReducers: {
         [fetchVideos.fulfilled.type]: (state, action: PayloadAction<IVideo[]>) => {

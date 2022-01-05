@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {Button, Col, Row} from "antd";
 import module from "./styles.module.scss";
 import {IVideo} from "../model";
@@ -6,8 +6,20 @@ import { Link } from 'react-router-dom';
 import cn from 'classnames';
 import VideosFilter from "../../../features/videos-filter";
 
+
 interface VideosProps {
     videos: IVideo[],
+}
+
+interface ILazyBackground {
+    src: string,
+    className: string;
+    children: React.ReactNode;
+}
+
+interface IImage {
+    srcImage: string,
+    setSrcImage: string,
 }
 
 const VideosUI: FC<VideosProps> = ({videos}) => {
@@ -19,6 +31,8 @@ const VideosUI: FC<VideosProps> = ({videos}) => {
         }
         return sliced;
     }
+
+    const [imagesIsLoaded, setImagesIsLoaded] = useState(false);
 
     return (
         <div>
@@ -47,19 +61,20 @@ const VideosUI: FC<VideosProps> = ({videos}) => {
                                         <div className={module.title}>
                                             {titleSlice(obj.title)}
                                         </div>
-                                        <div style={{backgroundImage: "url(" + obj.default_thumb.src + ")"}}
+
+                                        <div style={{backgroundImage: "url(" + obj.default_thumb.src + ")",
+                                                    backgroundSize: "cover" }}
                                             className={module.video}>
-                                            <div className={module.videoCornerInfo}>
+
                                                 <div className={module.cornerBlock}>
                                                     {obj.length_min}
                                                 </div>
                                                 <div className={module.cornerBlock}>
                                                     👁 {obj.views}
                                                 </div>
-                                            </div>
-                                            {/*<img src={obj.default_thumb.src} alt={obj.title} />*/}
 
                                         </div>
+
                                         <div className={module.info}>
                                             <div>Added: {obj.added.slice(0, 10)}</div>
                                             <div>Views: {obj.views}</div>
