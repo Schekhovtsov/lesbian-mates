@@ -1,9 +1,9 @@
 import React, {FC} from 'react';
-import {Select, Button, Form, Row, Col} from 'antd';
+import {Button, Col, Form, Row, Select} from 'antd';
 
-import { IGirl } from '../../entities/girls';
-import { useAppDispatch } from '../../hooks/redux';
-import { fetchVideos } from "../../entities/videos";
+import {IGirl} from '../../entities/girls';
+import {useAppDispatch} from '../../hooks/redux';
+import {fetchVideos} from "../../entities/videos";
 
 interface ISelectorProps {
     girls: IGirl[]
@@ -44,7 +44,6 @@ const GirlsSelector: FC<ISelectorProps> = ({girls}) => {
     return (
 
         <div>
-            <h1>Please, select</h1>
             <Row className='row'>
                 <Col className='col' xs={24} xl={24}>
                     <Form
@@ -65,7 +64,7 @@ const GirlsSelector: FC<ISelectorProps> = ({girls}) => {
                         >
                             <Select mode="tags"
                                     size="large"
-                                    placeholder="Choose your girls">
+                                    placeholder="Please, select one or more pornstars">
 
                                 {
                                     girls.map(girl =>

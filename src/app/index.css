@@ -1,14 +1,14 @@
 @import url(antd/dist/antd.css);
 .header {
-  background: #001529; }
+  background: white; }
   .header .headerContent {
     margin: 0 auto; }
   .header .logo {
     float: left;
-    width: 120px;
-    height: 31px;
-    margin: 16px 24px 16px 0;
-    background: rgba(255, 255, 255, 0.3); }
+    width: 150px;
+    margin: 15px 14px 16px 0; }
+    .header .logo img {
+      width: 100%; }
 
 .content {
   min-height: 280px;

@@ -10,17 +10,6 @@ interface VideosProps {
     videos: IVideo[],
 }
 
-interface ILazyBackground {
-    src: string,
-    className: string;
-    children: React.ReactNode;
-}
-
-interface IImage {
-    srcImage: string,
-    setSrcImage: string,
-}
-
 const VideosUI: FC<VideosProps> = ({videos}) => {
 
     const titleSlice = (title: string): string => {
@@ -59,7 +48,7 @@ const VideosUI: FC<VideosProps> = ({videos}) => {
                                             {titleSlice(obj.title)}
                                         </div>
 
-                                        <div style={{backgroundImage: "url(" + {/*obj.default_thumb.src*/} + ")",
+                                        <div style={{backgroundImage: "url(" + obj.default_thumb.src + ")",
                                                     backgroundSize: "cover" }}
                                             className={module.video}>
 

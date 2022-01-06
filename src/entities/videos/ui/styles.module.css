@@ -10,6 +10,7 @@
       .videos .videoBlock .content .title {
         font-size: 14pt;
         min-height: 70px;
+        word-break: break-word;
         text-overflow: ellipsis; }
       .videos .videoBlock .content .video {
         width: 100%;

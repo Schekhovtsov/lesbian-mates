@@ -1,6 +1,10 @@
 @import './variables';
 @import 'antd/dist/antd.css';
 
+body {
+  //background: url("../shared/images/background.jpg");
+}
+
 .col {
   //background-color: #6cffc5;
 }
@@ -11,7 +15,7 @@
 
 .header {
 
-  background: $headerColor;
+  background: white;
 
   .headerContent {
     margin: 0 auto;
@@ -19,16 +23,18 @@
 
   .logo {
     float: left;
-    width: 120px;
-    height: 31px;
-    margin: 16px 24px 16px 0;
-    background: rgba(255, 255, 255, 0.3);
+    width: 150px;
+    margin: 15px 14px 16px 0;
+    //background: rgba(255, 255, 255, 0.3);
+
+    img {
+      width: 100%;
+    }
   }
 }
 
 .content {
   min-height: 280px;
-  //background: #FFF;
   margin: 20px auto;
   padding: 30px;
 }

@@ -15,10 +15,11 @@
       display: flex;
       flex-direction: column;
 
+
       .title {
         font-size: 14pt;
         min-height: 70px;
-
+        word-break: break-word;
         text-overflow: ellipsis;
       }
 
