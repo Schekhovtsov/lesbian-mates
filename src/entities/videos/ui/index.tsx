@@ -5,13 +5,17 @@ import {IVideo} from "../model";
 import cn from 'classnames';
 import VideosFilter from "../../../features/videos-filter";
 import { Link } from 'react-router-dom';
+import {IGirl} from "../../girls";
 
 
 interface VideosProps {
     videos: IVideo[],
+    girls: IGirl[],
 }
 
-const VideosUI: FC<VideosProps> = ({videos}) => {
+const VideosUI: FC<VideosProps> = ({videos, girls}) => {
+
+    // searchquery
 
     const titleSlice = (title: string): string => {
 
@@ -56,26 +60,33 @@ const VideosUI: FC<VideosProps> = ({videos}) => {
 
 
                                         <a href={obj.url} target='_blank'>
-                                        <div style={{backgroundImage: "url(" + obj.default_thumb.src + ")",
-                                                    backgroundSize: "cover" }}
-                                            className={module.video}>
+                                            <div style={{backgroundImage: "url(" + {/*obj.default_thumb.src*/} + ")",
+                                                        backgroundSize: "cover" }}
+                                                className={module.video}>
 
-                                                <div className={module.playButtonBlock}>
-                                                    <div>
-                                                        {/*▶️*/}
+                                                    <div className={module.playButtonBlock}>
+                                                        <div>
+                                                            {/*▶️*/}
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                               <div className={module.infoTimeAndView}>
-                                                    <div className={module.cornerBlock}>
-                                                        {obj.length_min}
-                                                    </div>
-                                                    <div className={module.cornerBlock}>
-                                                        👁 {obj.views}
-                                                    </div>
-                                               </div>
+                                                   <div className={module.infoTimeAndView}>
+                                                        <div className={module.cornerBlock}>
+                                                            {obj.length_min}
+                                                        </div>
+                                                        <div className={module.cornerBlock}>
+                                                            👁 {obj.views}
+                                                        </div>
+                                                   </div>
 
-                                        </div></a>
+                                            </div>
+                                        </a>
+
+                                        <div>
+                                           {/* {girls.map(girl => {
+                                                if (girl.name === )
+                                            })}*/}
+                                        </div>
 
                                         <div className={module.info}>
                                             <div>Added: {obj.added.slice(0, 10)}</div>

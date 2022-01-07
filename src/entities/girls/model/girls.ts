@@ -1,6 +1,4 @@
-import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {fetchVideos, IVideo} from "../../videos";
-import {videosAPI} from "../../../shared/api";
+import {createSlice} from "@reduxjs/toolkit";
 
 export interface IGirl {
     name: string

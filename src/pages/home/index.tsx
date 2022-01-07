@@ -35,7 +35,7 @@ const HomePage = () => {
             { isLoading && <h1>Loading videos</h1> }
             { videosError && <h1>{videosError}</h1> }
 
-            <Videos videos={videos}/>
+            <Videos videos={videos} girls={girls}/>
 
         </div>
     );

@@ -28,14 +28,22 @@ const GirlsSelector: FC<ISelectorProps> = ({girls}) => {
 
     const onFinish = (values: { selected: string[] }) => {
 
+        const girlsOriginal = values.selected;
+
         const formattedValues = values.selected.map((name: string) =>
             name
                 .toLowerCase()
                 .replace(/\s/g, '-')
         );
 
-        const girls = formattedValues.toString().replace(/,/g, '-');
-        dispatch(fetchVideos(girls));
+        const girlsFormatted = formattedValues.toString().replace(/,/g, '-');
+
+        const names = {
+            girlsFormatted,
+            girlsOriginal
+        }
+
+        dispatch(fetchVideos(names));
         clearSelector()
 
     };
