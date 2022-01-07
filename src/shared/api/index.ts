@@ -2,7 +2,7 @@ import {createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
 import {IServerResponse} from "../../entities/videos";
 
-const base_url = 'https://www.eporner.com/api/v2/video/search/';
+const base_url = 'https://de.eporner.com/api/v2/video/search/';
 
 export const videosAPI = {
 
@@ -10,7 +10,7 @@ export const videosAPI = {
         return axios.get<IServerResponse>(`${base_url}?&format=json`,
             {
                 params: {
-                    query: `${girls}`,
+                    query: `lesbian-${girls}`,
                     //per_page: 2,
                 },
             })
@@ -20,7 +20,7 @@ export const videosAPI = {
         return axios.get<IServerResponse>(`${base_url}?&format=json`,
             {
                 params: {
-                    query: `${girls}`,
+                    query: `lesbian-${girls}`,
                     order: sortBy,
                 },
             })

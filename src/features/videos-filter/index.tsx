@@ -16,16 +16,16 @@ const VideosFilter: React.FC<IVideosFilter> = () => {
     const {searchQuery} =
         useAppSelector(state => state.videosReducer);
 
-    const [activeFilter, setActiveFilter] = useState('дате добавления')
+    const [activeFilter, setActiveFilter] = useState('latest')
 
     const sortTypes = [
-        { name: 'популярности', value: 'most-popular' },
-        { name: 'дате добавления', value: 'latest' },
-        { name: 'длительности ↓', value: 'longest' },
-        { name: 'длительности ↑ ', value: 'shortest' },
-        { name: 'рейтингу', value: 'top-rated' },
-        { name: 'лучшее за неделю', value: 'top-weekly' },
-        { name: 'лучшее за месяц', value: 'top-monthly' },
+        { name: 'popular', value: 'most-popular' },
+        { name: 'latest', value: 'latest' },
+        { name: 'longest ↓', value: 'longest' },
+        { name: 'shortest ↑ ', value: 'shortest' },
+        { name: 'rating', value: 'top-rated' },
+        { name: 'top weekly', value: 'top-weekly' },
+        { name: 'top monthly', value: 'top-monthly' },
     ]
 
     const handleSortTypeButton = (name: string, sortBy: string) => {
@@ -51,7 +51,7 @@ const VideosFilter: React.FC<IVideosFilter> = () => {
 
     return (
         <div className={module.filterPanel}>
-            <span>Сортировать по: </span>
+            <span>Sort by: </span>
 
             <Dropdown overlay={menu}>
                 <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>

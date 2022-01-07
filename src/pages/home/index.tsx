@@ -20,9 +20,9 @@ const HomePage = () => {
             {
                 videos.length === 0 && (
                     <div>
-                        <Title>Welcome to mates</Title>
+                        <Title>Welcome to lesbian-mates</Title>
                         <Title level={3}>Did girls do porn together?</Title>
-                        <Paragraph>is a service that allows you to see if specific girls were filmed in porn together as lesbians
+                        <Paragraph>This is a service that allows you to see if specific girls were filmed in porn together as lesbians
                         </Paragraph>
 
                         <Divider />
@@ -32,7 +32,7 @@ const HomePage = () => {
 
             <GirlsSelector girls={girls}/>
 
-            { isLoading && <h1>Идёт загрузка</h1> }
+            { isLoading && <h1>Loading videos</h1> }
             { videosError && <h1>{videosError}</h1> }
 
             <Videos videos={videos}/>

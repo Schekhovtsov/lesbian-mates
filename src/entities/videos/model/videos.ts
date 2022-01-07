@@ -59,6 +59,8 @@ export const fetchVideos = createAsyncThunk(
     }
 )
 
+//export const clearVideos =
+
 export const sortVideos = createAsyncThunk(
     'videos/sortVideos',
     async (args: ISortArgs, thunkAPI) => {
@@ -66,7 +68,7 @@ export const sortVideos = createAsyncThunk(
             const response = await videosAPI.sortVideos(args.searchQuery, args.sortBy)
             return response.data.videos;
         }   catch(e) {
-            return thunkAPI.rejectWithValue('Не удалось получить видео')
+            return thunkAPI.rejectWithValue('Couldn\'t get the video')
         }
     }
 )
@@ -76,7 +78,9 @@ export const videosSlice = createSlice({
     name: 'videos',
     initialState,
     reducers: {
-
+        clearVideos(state) {
+            state.videos = [];
+        }
     },
     extraReducers: {
         [fetchVideos.fulfilled.type]: (state, action: any) => {

@@ -4,6 +4,7 @@ import module from "./styles.module.scss";
 import {IVideo} from "../model";
 import cn from 'classnames';
 import VideosFilter from "../../../features/videos-filter";
+import { Link } from 'react-router-dom';
 
 
 interface VideosProps {
@@ -13,6 +14,7 @@ interface VideosProps {
 const VideosUI: FC<VideosProps> = ({videos}) => {
 
     const titleSlice = (title: string): string => {
+
         let sliced = title.slice(0, 47);
         if (sliced.length < title.length) {
             sliced += '...';
@@ -44,32 +46,42 @@ const VideosUI: FC<VideosProps> = ({videos}) => {
                             <Col className={cn('col', module.videos)} xs={24} sm={12} md={8} xl={6} key={obj.id}>
                                 <div className={module.videoBlock}>
                                     <div className={module.content}>
-                                        <div className={module.title}>
-                                            {titleSlice(obj.title)}
-                                        </div>
 
+                                            <div className={module.title}>
+                                                {/*{obj.title}*/}
+                                                <a href={obj.url} target='_blank'>
+                                                    {titleSlice(obj.title)}
+                                                </a>
+                                            </div>
+
+
+                                        <a href={obj.url} target='_blank'>
                                         <div style={{backgroundImage: "url(" + obj.default_thumb.src + ")",
                                                     backgroundSize: "cover" }}
                                             className={module.video}>
 
-                                                <div className={module.cornerBlock}>
-                                                    {obj.length_min}
-                                                </div>
-                                                <div className={module.cornerBlock}>
-                                                    👁 {obj.views}
+                                                <div className={module.playButtonBlock}>
+                                                    <div>
+                                                        {/*▶️*/}
+                                                    </div>
                                                 </div>
 
-                                        </div>
+                                               <div className={module.infoTimeAndView}>
+                                                    <div className={module.cornerBlock}>
+                                                        {obj.length_min}
+                                                    </div>
+                                                    <div className={module.cornerBlock}>
+                                                        👁 {obj.views}
+                                                    </div>
+                                               </div>
+
+                                        </div></a>
 
                                         <div className={module.info}>
                                             <div>Added: {obj.added.slice(0, 10)}</div>
                                             <div>Views: {obj.views}</div>
                                         </div>
-                                        <div className={module.link}>
-                                            <a href={obj.url} target='_blank'>
-                                                <Button type='primary' block>Open video</Button>
-                                            </a>
-                                        </div>
+
                                     </div>
                                 </div>
                             </Col>

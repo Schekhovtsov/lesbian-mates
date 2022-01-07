@@ -21,12 +21,10 @@ const GirlsSelector: FC<ISelectorProps> = ({girls}) => {
         children.push(<Option key={girl.name}>{girl.name}</Option>)
     );
 
-    function handleChange(values: Array<string>) {
-        const formattedValues = values.map(name =>
-            name
-                .toLowerCase()
-                .replace(/\s/g, '-'))
+    const clearSelector = () => {
+
     }
+
 
     const onFinish = (values: { selected: string[] }) => {
 
@@ -37,7 +35,8 @@ const GirlsSelector: FC<ISelectorProps> = ({girls}) => {
         );
 
         const girls = formattedValues.toString().replace(/,/g, '-');
-        dispatch(fetchVideos(girls))
+        dispatch(fetchVideos(girls));
+        clearSelector()
 
     };
 

@@ -9,10 +9,19 @@ import {Routing} from '../pages';
 import {Link, NavLink} from "react-router-dom";
 
 import logo from '../shared/images/logo.png'
+import {fetchVideos, videosSlice} from "../entities/videos";
+import {useAppDispatch} from "../hooks/redux";
 
 const {Content, Header, Footer} = Layout;
 
 const App = () => {
+
+    const {clearVideos} = videosSlice.actions;
+    const dispatch = useAppDispatch();
+
+    const handleToHomePage = () => {
+        dispatch(clearVideos())
+    }
 
     return (
 
@@ -20,14 +29,13 @@ const App = () => {
 
             <Row className='row header'>
                 <Col className='col headerContent'
-                     xs={24} sm={24} md={20} xl={20} xxl={17}>
+                     xs={24} sm={24} md={20} xl={20} xxl={16}>
                     <PageHeader>
-                        <Link to='/'>
-
-                            <div className='header logo'>
+                        <a href='/'>
+                            <div className='header logo' onClick={() => handleToHomePage()}>
                                 <img src={logo} alt='lesbian-mates logo' />
                             </div>
-                        </Link>
+                        </a>
                         <Menu theme="light" mode="horizontal" defaultSelectedKeys={['1']}>
                             <Menu.Item key={1}><NavLink to='/'>Girls</NavLink></Menu.Item>
                             <Menu.Item key={2}><NavLink to='/about'>About</NavLink></Menu.Item>
