@@ -6,6 +6,7 @@ import cn from 'classnames';
 import VideosFilter from "../../../features/videos-filter";
 import { Link } from 'react-router-dom';
 import {IGirl} from "../../girls";
+import {useAppSelector} from "../../../hooks/redux";
 
 
 interface VideosProps {
@@ -15,7 +16,7 @@ interface VideosProps {
 
 const VideosUI: FC<VideosProps> = ({videos, girls}) => {
 
-    // searchquery
+    const {searchQuery, searchingNames} = useAppSelector(state => state.videosReducer)
 
     const titleSlice = (title: string): string => {
 
@@ -25,6 +26,22 @@ const VideosUI: FC<VideosProps> = ({videos, girls}) => {
         }
         return sliced;
     }
+
+    let keys;
+    let keyName;
+
+    let tags = 'lesbians, milf, teens, Busty babe Adriana Chechik and friend Abigail Mac steamy lesbian sex';
+
+
+    const regexp = /[A-Z][a-z]+\s[A-Z][a-z]+/g;
+    //console.log(tags.match(regexp))
+    //alert( regexp.test(name1) );
+
+    const myRegexFunction = (tags: string): RegExpMatchArray | null => {
+        const regexp = /[A-Z][a-z]+\s[A-Z][a-z]+/g;
+        return tags.match(regexp);
+    }
+
 
     return (
         <div>
@@ -45,11 +62,18 @@ const VideosUI: FC<VideosProps> = ({videos, girls}) => {
 
             <Row className='row' gutter={[14, 8]}>
                 {
+
+
                     videos && videos.map(obj =>
                         (
+
+
+
                             <Col className={cn('col', module.videos)} xs={24} sm={12} md={8} xl={6} key={obj.id}>
                                 <div className={module.videoBlock}>
                                     <div className={module.content}>
+
+
 
                                             <div className={module.title}>
                                                 {/*{obj.title}*/}
@@ -82,11 +106,85 @@ const VideosUI: FC<VideosProps> = ({videos, girls}) => {
                                             </div>
                                         </a>
 
-                                        <div>
-                                           {/* {girls.map(girl => {
-                                                if (girl.name === )
-                                            })}*/}
+                                        {/*<div>
+                                            {obj.keywords.split(',').map(key => <div className={module.tag}>{key}</div>)}
+                                        </div>*/}
+
+                                        {
+                                            myRegexFunction(obj.keywords)?.map(item => <div>{item}</div>)
+
+
+                                        }
+
+                                        {
+
+                                            /*console.log(
+                                                obj.keywords.match(regexp)
+                                            )*/
+
+                                            //obj.keywords.match(regexp).map(item => <div>item</div>)
+
+                                        }
+
+
+
+                                        {/* Получаем два массива, потом обединяем и убираем дубликаты*/}
+
+
+                                        <div style={{backgroundColor: 'red'}}>
+
+                                            {
+
+                                                obj.keywords.split(',').map((key, index) => {
+
+                                                        //console.log('ALL KEYS '+index+' '+key)
+                                                        //girls.filter(item => item.name == key).map(obj => console.log(obj.name))
+
+                                                        girls.map(girl => {
+                                                            if (key.toLowerCase() == girl.name.toLowerCase()) {
+                                                                //console.log(girl.name+' from video '+ obj.title)
+                                                            }
+                                                        })
+
+                                                    }
+
+                                                )
+                                            }
                                         </div>
+
+
+                                       {/* <div>
+                                            {
+
+                                                obj.keywords.split(',').map(key =>
+                                                    //<div className={module.tag}>
+                                                    {
+                                                            girls.filter(item =>
+                                                                    //alert(item.name);
+                                                                    //alert(key)
+                                                                    item.name == key
+
+
+                                                            ).map(res => <div className={module.tag}>{res.name}</div>)
+
+                                                            // <div className={module.tag}>{res}</div>
+
+
+                                                        }
+                                                    //</div>
+                                                )
+                                            }
+
+                                        </div>*/}
+
+
+{/*                                        <div>
+                                            {obj.keywords.map(key => {
+                                                <div>
+                                                    {key}
+                                                </div>
+                                            })}
+                                        </div>*/}
 
                                         <div className={module.info}>
                                             <div>Added: {obj.added.slice(0, 10)}</div>

@@ -46,5 +46,8 @@
         margin: 5px 0; }
       .videos .videoBlock .content .link {
         margin: 10px 0; }
+    .videos .videoBlock .tag {
+      background-color: #87e8de;
+      border-radius: 20px; }
 
 /*# sourceMappingURL=styles.module.css.map */
