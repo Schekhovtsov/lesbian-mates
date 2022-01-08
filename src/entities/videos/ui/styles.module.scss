@@ -84,9 +84,22 @@
 
     }
 
-    .tag{
-      background-color: #87e8de;
-      border-radius: 20px;
+    .tagsBlock{
+
+      display: flex;
+      flex-wrap: wrap;
+      margin: 10px -5px;
+
+      .tag {
+        margin: 2px 5px;
+        padding: 0 5px;
+        background-color: lightyellow;
+        border-radius: 15px;
+
+
+      }
+
+
     }
 
 

@@ -7,6 +7,7 @@ import VideosFilter from "../../../features/videos-filter";
 import { Link } from 'react-router-dom';
 import {IGirl} from "../../girls";
 import {useAppSelector} from "../../../hooks/redux";
+import {keyboardKey} from "@testing-library/user-event";
 
 
 interface VideosProps {
@@ -30,6 +31,34 @@ const VideosUI: FC<VideosProps> = ({videos, girls}) => {
     let keys;
     let keyName;
 
+    interface ITitleNames {
+        videoNumber: number,
+        namesArray: Array<string>
+    }
+
+    let titleNames: ITitleNames = {
+        videoNumber: 0,
+        namesArray: []
+    };
+
+    let titleNamesArray: Array<string> = [];
+    let keysNamesArray: Array<string> = [];
+
+    interface IGetUniqueNames {
+
+    }
+
+    const getUniqueNames = (array1: Array<string>, array2: Array<string>) => {
+        const array = array1.concat(array2);
+        let uniqueArray: Array<string> = [];
+        array.forEach((element) => {
+            if (!uniqueArray.includes(element)) {
+                uniqueArray.push(element);
+            }
+        });
+        return uniqueArray
+    }
+
     let tags = 'lesbians, milf, teens, Busty babe Adriana Chechik and friend Abigail Mac steamy lesbian sex';
 
 
@@ -37,7 +66,7 @@ const VideosUI: FC<VideosProps> = ({videos, girls}) => {
     //console.log(tags.match(regexp))
     //alert( regexp.test(name1) );
 
-    const myRegexFunction = (tags: string): RegExpMatchArray | null => {
+    const tagsToName = (tags: string): RegExpMatchArray | null => {
         const regexp = /[A-Z][a-z]+\s[A-Z][a-z]+/g;
         return tags.match(regexp);
     }
@@ -64,7 +93,7 @@ const VideosUI: FC<VideosProps> = ({videos, girls}) => {
                 {
 
 
-                    videos && videos.map(obj =>
+                    videos && videos.map((obj, index) =>
                         (
 
 
@@ -106,85 +135,23 @@ const VideosUI: FC<VideosProps> = ({videos, girls}) => {
                                             </div>
                                         </a>
 
-                                        {/*<div>
-                                            {obj.keywords.split(',').map(key => <div className={module.tag}>{key}</div>)}
-                                        </div>*/}
+                                        { tagsToName(obj.title)?.map(item => {
+                                            titleNamesArray.push(item)
+                                        } ) }
+                                        { tagsToName(obj.keywords)?.map(item => {
+                                            keysNamesArray.push(item)
+                                        } ) }
 
-                                        {
-                                            myRegexFunction(obj.keywords)?.map(item => <div>{item}</div>)
-
-
-                                        }
-
-                                        {
-
-                                            /*console.log(
-                                                obj.keywords.match(regexp)
-                                            )*/
-
-                                            //obj.keywords.match(regexp).map(item => <div>item</div>)
-
-                                        }
-
-
-
-                                        {/* Получаем два массива, потом обединяем и убираем дубликаты*/}
-
-
-                                        <div style={{backgroundColor: 'red'}}>
-
-                                            {
-
-                                                obj.keywords.split(',').map((key, index) => {
-
-                                                        //console.log('ALL KEYS '+index+' '+key)
-                                                        //girls.filter(item => item.name == key).map(obj => console.log(obj.name))
-
-                                                        girls.map(girl => {
-                                                            if (key.toLowerCase() == girl.name.toLowerCase()) {
-                                                                //console.log(girl.name+' from video '+ obj.title)
-                                                            }
-                                                        })
-
-                                                    }
-
-                                                )
-                                            }
+                                        <div className={module.tagsBlock}>
+                                            { getUniqueNames(titleNamesArray, keysNamesArray).map(item => (
+                                                <div className={module.tag}>
+                                                    {item}
+                                                </div>
+                                            )) }
                                         </div>
 
-
-                                       {/* <div>
-                                            {
-
-                                                obj.keywords.split(',').map(key =>
-                                                    //<div className={module.tag}>
-                                                    {
-                                                            girls.filter(item =>
-                                                                    //alert(item.name);
-                                                                    //alert(key)
-                                                                    item.name == key
-
-
-                                                            ).map(res => <div className={module.tag}>{res.name}</div>)
-
-                                                            // <div className={module.tag}>{res}</div>
-
-
-                                                        }
-                                                    //</div>
-                                                )
-                                            }
-
-                                        </div>*/}
-
-
-{/*                                        <div>
-                                            {obj.keywords.map(key => {
-                                                <div>
-                                                    {key}
-                                                </div>
-                                            })}
-                                        </div>*/}
+                                        { titleNamesArray.length = 0 }
+                                        { keysNamesArray.length = 0 }
 
                                         <div className={module.info}>
                                             <div>Added: {obj.added.slice(0, 10)}</div>
@@ -197,6 +164,7 @@ const VideosUI: FC<VideosProps> = ({videos, girls}) => {
                         )
                     )
                 }
+
             </Row>
         </div>
     );

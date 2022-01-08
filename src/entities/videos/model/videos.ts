@@ -111,7 +111,6 @@ export const videosSlice = createSlice({
             state.searchQuery = action.meta.arg;
         },*/
         [fetchVideos.fulfilled.type]: (state, action: PayloadAction<IFetchVideoActionPayload>) => {
-            console.log(action)
             state.isLoading = false;
             state.error = '';
             state.videos = action.payload.videos;

@@ -46,8 +46,14 @@
         margin: 5px 0; }
       .videos .videoBlock .content .link {
         margin: 10px 0; }
-    .videos .videoBlock .tag {
-      background-color: #87e8de;
-      border-radius: 20px; }
+    .videos .videoBlock .tagsBlock {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 10px -5px; }
+      .videos .videoBlock .tagsBlock .tag {
+        margin: 2px 5px;
+        padding: 0 5px;
+        background-color: lightyellow;
+        border-radius: 15px; }
 
 /*# sourceMappingURL=styles.module.css.map */
