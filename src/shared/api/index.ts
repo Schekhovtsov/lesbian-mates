@@ -11,7 +11,8 @@ export const videosAPI = {
             {
                 params: {
                     query: `lesbian-${girls}`,
-                    //per_page: 2,
+                    per_page: 2,
+
                 },
             });
     },

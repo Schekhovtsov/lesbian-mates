@@ -28,7 +28,8 @@ interface IVideosState {
     error: string;
     searchQuery: string;
     searchingNames: string[];
-    meta?: { arg: string }
+    meta?: { arg: string };
+    appIsInitialized: boolean;
 }
 
 interface IFetchVideo {
@@ -53,6 +54,7 @@ const initialState: IVideosState = {
     error: '',
     searchQuery: '',
     searchingNames: [],
+    appIsInitialized: false,
 }
 
 export interface IFetchVideosGirlsNames {
@@ -60,6 +62,19 @@ export interface IFetchVideosGirlsNames {
     girlsOriginal: string[];
 }
 
+const userLang = navigator.language;
+
+const getLocaleUrl = (obj: IVideo) => {
+
+    let url;
+
+    switch (userLang) {
+        case 'ru': url = obj.url.replace('www', 'de'); break;
+        default: url = obj.url;
+    }
+
+    return url;
+}
 
 export const fetchVideos = createAsyncThunk(
     'videos/fetchAll',
@@ -68,6 +83,11 @@ export const fetchVideos = createAsyncThunk(
             const response = await videosAPI.getVideos(obj.girlsFormatted)
             const searchQuery = obj.girlsFormatted;
             const namesOriginal = obj.girlsOriginal;
+
+            response.data.videos.map((obj) => {
+                obj.url = getLocaleUrl(obj);
+            })
+
             return {
                 videos: response.data.videos,
                 searchQuery,
@@ -86,7 +106,11 @@ export const sortVideos = createAsyncThunk(
     async (args: ISortArgs, thunkAPI) => {
         try {
             const response = await videosAPI.sortVideos(args.searchQuery, args.sortBy)
-            const searchQuery = args.searchQuery;
+
+            response.data.videos.map((obj) => {
+                obj.url = getLocaleUrl(obj);
+            })
+
             return response.data.videos;
         }   catch(e) {
             return thunkAPI.rejectWithValue('Couldn\'t get the video')
@@ -104,14 +128,9 @@ export const videosSlice = createSlice({
         }
     },
     extraReducers: {
-/*        [fetchVideos.fulfilled.type]: (state, action: PayloadAction<IVideo[], string, { arg: string }>) => {
-            state.isLoading = false;
-            state.error = '';
-            state.videos = action.payload;
-            state.searchQuery = action.meta.arg;
-        },*/
         [fetchVideos.fulfilled.type]: (state, action: PayloadAction<IFetchVideoActionPayload>) => {
             state.isLoading = false;
+            state.appIsInitialized = true;
             state.error = '';
             state.videos = action.payload.videos;
             state.searchQuery = action.payload.searchQuery;

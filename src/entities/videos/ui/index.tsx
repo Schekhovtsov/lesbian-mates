@@ -15,22 +15,6 @@ interface VideosProps {
 
 const VideosUI: FC<VideosProps> = ({videos, girls}) => {
 
-    const userLang = navigator.language;
-
-    const {searchQuery, searchingNames} = useAppSelector(state => state.videosReducer)
-
-    const getLocaleUrl = (obj: IVideo) => {
-
-        let url;
-
-        switch (userLang) {
-            case 'ru': url = obj.url.replace('www', 'de'); break;
-            default: url = obj.url;
-        }
-
-        return url;
-    }
-
     const titleSlice = (title: string): string => {
 
         let sliced = title.slice(0, 47);
@@ -38,40 +22,6 @@ const VideosUI: FC<VideosProps> = ({videos, girls}) => {
             sliced += '...';
         }
         return sliced;
-    }
-
-
-    interface ITitleNames {
-        videoNumber: number,
-        namesArray: Array<string>
-    }
-
-    let titleNames: ITitleNames = {
-        videoNumber: 0,
-        namesArray: []
-    };
-
-    let titleNamesArray: Array<string> = [];
-    let keysNamesArray: Array<string> = [];
-
-    const getUniqueNames = (array1: Array<string>, array2: Array<string>) => {
-        const array = array1.concat(array2);
-        let uniqueArray: Array<string> = [];
-        array.forEach((element) => {
-            if (!uniqueArray.includes(element)) {
-                uniqueArray.push(element);
-            }
-        });
-        return uniqueArray
-    }
-
-    let tags = 'lesbians, milf, teens, Busty babe Adriana Chechik and friend Abigail Mac steamy lesbian sex';
-
-    const regexp = /[A-Z][a-z]+\s[A-Z][a-z]+/g;
-
-    const tagsToName = (tags: string): RegExpMatchArray | null => {
-        const regexp = /[A-Z][a-z]+\s[A-Z][a-z]+/g;
-        return tags.match(regexp);
     }
 
     return (
@@ -109,7 +59,7 @@ const VideosUI: FC<VideosProps> = ({videos, girls}) => {
                                             <div className={module.title}>
                                                 {/*{obj.title}*/}
 
-                                                <a href={ getLocaleUrl(obj) }
+                                                <a href={ obj.url }
                                                    title={obj.title}
                                                    target='_blank'>
                                                     {titleSlice(obj.title)}
@@ -117,10 +67,10 @@ const VideosUI: FC<VideosProps> = ({videos, girls}) => {
                                             </div>
 
 
-                                        <a href={ getLocaleUrl(obj) }
+                                        <a href={ obj.url }
                                            title={obj.title}
                                            target='_blank'>
-                                            <div style={{backgroundImage: "url(" + obj.default_thumb.src + ")",
+                                            <div style={{backgroundImage: "url(" + {/*obj.default_thumb.src*/} + ")",
                                                         backgroundSize: "cover" }}
                                                 className={module.video}>
 
@@ -167,6 +117,9 @@ const VideosUI: FC<VideosProps> = ({videos, girls}) => {
                 }
 
             </Row>
+
+
+
         </div>
     );
 };

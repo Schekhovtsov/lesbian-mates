@@ -1,9 +1,9 @@
 import React, {FC, useState} from 'react';
 import {Button, Col, Form, Row, Select} from 'antd';
 
-import {IGirl} from '../../entities/girls';
-import {fetchVideos} from "../../entities/videos";
-import { useAppDispatch } from '../../app/hooks';
+import {IGirl, setSearchingGirls} from '../../entities/girls';
+import { fetchVideos } from "../../entities/videos";
+import {useAppDispatch, useAppSelector} from '../../app/hooks';
 
 interface ISelectorProps {
     girls: IGirl[]
@@ -12,6 +12,9 @@ interface ISelectorProps {
 const GirlsSelector: FC<ISelectorProps> = ({girls}) => {
 
     const dispatch = useAppDispatch();
+
+    const {searchingNames} =
+        useAppSelector(state => state.girlsReducer);
 
     const {Option} = Select;
 
@@ -38,13 +41,19 @@ const GirlsSelector: FC<ISelectorProps> = ({girls}) => {
             girlsOriginal
         }
 
+        dispatch(setSearchingGirls(names));
         dispatch(fetchVideos(names));
+
+        console.log(searchingNames)
+
 
     };
 
     return (
 
-        <div>
+
+        // делать фетчинг обычного поиска видео и внутрь передавать объект из стора с именами девочек
+        <div> <button onClick={() => {  }}>Подгрузить</button>
             <Row className='row'>
                 <Col className='col' xs={24} xl={24}>
                     <Form

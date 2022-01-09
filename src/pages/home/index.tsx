@@ -10,7 +10,7 @@ const { Title, Paragraph, Text } = Typography;
 
 const HomePage = () => {
 
-    const {videos, isLoading, error: videosError} =
+    const {videos, isLoading, error: videosError, appIsInitialized} =
         useAppSelector(state => state.videosReducer);
 
     const {girls} = useAppSelector(state => state.girlsReducer);
@@ -33,10 +33,11 @@ const HomePage = () => {
 
             <GirlsSelector girls={girls}/>
 
-            { isLoading ? <Preloader /> : (
-                videos.length > 0 &&
-                <Videos videos={videos} girls={girls}/>
-            ) }
+            { isLoading && <Preloader /> }
+
+            { (videos.length === 0 && appIsInitialized) && <h1>Lesbian videos not found</h1> }
+            { videos.length > 0 && <Videos videos={videos} girls={girls} /> }
+
             { videosError && <h1>{videosError}</h1> }
 
 

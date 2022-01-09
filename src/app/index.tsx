@@ -54,7 +54,7 @@ const App = () => {
             </Row>
 
             <Footer style={{ textAlign: 'center' }}>
-                lesbian-mates © 2022 Created by Schekhovtsov
+                lesbian-mates © 2022 <br />Created by Schekhovtsov
             </Footer>
         </Layout>
     );
