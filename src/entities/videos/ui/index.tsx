@@ -1,13 +1,11 @@
 import React, {FC} from 'react';
-import {Button, Col, Row} from "antd";
+import {Col, Row} from "antd";
 import module from "./styles.module.scss";
 import {IVideo} from "../model";
 import cn from 'classnames';
 import VideosFilter from "../../../features/videos-filter";
-import { Link } from 'react-router-dom';
 import {IGirl} from "../../girls";
-import {useAppSelector} from "../../../hooks/redux";
-import {keyboardKey} from "@testing-library/user-event";
+import {useAppSelector} from "../../../app/hooks";
 
 
 interface VideosProps {
@@ -17,7 +15,21 @@ interface VideosProps {
 
 const VideosUI: FC<VideosProps> = ({videos, girls}) => {
 
+    const userLang = navigator.language;
+
     const {searchQuery, searchingNames} = useAppSelector(state => state.videosReducer)
+
+    const getLocaleUrl = (obj: IVideo) => {
+
+        let url;
+
+        switch (userLang) {
+            case 'ru': url = obj.url.replace('www', 'de'); break;
+            default: url = obj.url;
+        }
+
+        return url;
+    }
 
     const titleSlice = (title: string): string => {
 
@@ -28,8 +40,6 @@ const VideosUI: FC<VideosProps> = ({videos, girls}) => {
         return sliced;
     }
 
-    let keys;
-    let keyName;
 
     interface ITitleNames {
         videoNumber: number,
@@ -44,10 +54,6 @@ const VideosUI: FC<VideosProps> = ({videos, girls}) => {
     let titleNamesArray: Array<string> = [];
     let keysNamesArray: Array<string> = [];
 
-    interface IGetUniqueNames {
-
-    }
-
     const getUniqueNames = (array1: Array<string>, array2: Array<string>) => {
         const array = array1.concat(array2);
         let uniqueArray: Array<string> = [];
@@ -61,16 +67,12 @@ const VideosUI: FC<VideosProps> = ({videos, girls}) => {
 
     let tags = 'lesbians, milf, teens, Busty babe Adriana Chechik and friend Abigail Mac steamy lesbian sex';
 
-
     const regexp = /[A-Z][a-z]+\s[A-Z][a-z]+/g;
-    //console.log(tags.match(regexp))
-    //alert( regexp.test(name1) );
 
     const tagsToName = (tags: string): RegExpMatchArray | null => {
         const regexp = /[A-Z][a-z]+\s[A-Z][a-z]+/g;
         return tags.match(regexp);
     }
-
 
     return (
         <div>
@@ -106,22 +108,21 @@ const VideosUI: FC<VideosProps> = ({videos, girls}) => {
 
                                             <div className={module.title}>
                                                 {/*{obj.title}*/}
-                                                <a href={obj.url} target='_blank'>
+
+                                                <a href={ getLocaleUrl(obj) }
+                                                   title={obj.title}
+                                                   target='_blank'>
                                                     {titleSlice(obj.title)}
                                                 </a>
                                             </div>
 
 
-                                        <a href={obj.url} target='_blank'>
-                                            <div style={{backgroundImage: "url(" + {/*obj.default_thumb.src*/} + ")",
+                                        <a href={ getLocaleUrl(obj) }
+                                           title={obj.title}
+                                           target='_blank'>
+                                            <div style={{backgroundImage: "url(" + obj.default_thumb.src + ")",
                                                         backgroundSize: "cover" }}
                                                 className={module.video}>
-
-                                                    <div className={module.playButtonBlock}>
-                                                        <div>
-                                                            {/*▶️*/}
-                                                        </div>
-                                                    </div>
 
                                                    <div className={module.infoTimeAndView}>
                                                         <div className={module.cornerBlock}>
@@ -135,7 +136,7 @@ const VideosUI: FC<VideosProps> = ({videos, girls}) => {
                                             </div>
                                         </a>
 
-                                        { tagsToName(obj.title)?.map(item => {
+                                       {/* { tagsToName(obj.title)?.map(item => {
                                             titleNamesArray.push(item)
                                         } ) }
                                         { tagsToName(obj.keywords)?.map(item => {
@@ -151,11 +152,11 @@ const VideosUI: FC<VideosProps> = ({videos, girls}) => {
                                         </div>
 
                                         { titleNamesArray.length = 0 }
-                                        { keysNamesArray.length = 0 }
+                                        { keysNamesArray.length = 0 }*/}
 
                                         <div className={module.info}>
                                             <div>Added: {obj.added.slice(0, 10)}</div>
-                                            <div>Views: {obj.views}</div>
+                                            <div>Rate: {obj.rate}</div>
                                         </div>
 
                                     </div>

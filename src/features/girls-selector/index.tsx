@@ -1,9 +1,9 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import {Button, Col, Form, Row, Select} from 'antd';
 
 import {IGirl} from '../../entities/girls';
-import {useAppDispatch} from '../../hooks/redux';
 import {fetchVideos} from "../../entities/videos";
+import { useAppDispatch } from '../../app/hooks';
 
 interface ISelectorProps {
     girls: IGirl[]
@@ -20,11 +20,6 @@ const GirlsSelector: FC<ISelectorProps> = ({girls}) => {
     girls.map(girl =>
         children.push(<Option key={girl.name}>{girl.name}</Option>)
     );
-
-    const clearSelector = () => {
-
-    }
-
 
     const onFinish = (values: { selected: string[] }) => {
 
@@ -44,7 +39,6 @@ const GirlsSelector: FC<ISelectorProps> = ({girls}) => {
         }
 
         dispatch(fetchVideos(names));
-        clearSelector()
 
     };
 

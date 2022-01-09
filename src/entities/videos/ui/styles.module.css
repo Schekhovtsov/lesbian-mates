@@ -34,7 +34,7 @@
           justify-content: space-between; }
           .videos .videoBlock .content .video .infoTimeAndView .cornerBlock {
             padding: 5px;
-            margin: 0 0 5px 5px;
+            margin: 0 5px 5px 5px;
             background-color: rgba(0, 0, 0, 0.5);
             color: white; }
       .videos .videoBlock .content img {

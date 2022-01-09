@@ -1,9 +1,10 @@
 import React from 'react';
-import {useAppSelector} from "../../hooks/redux";
 import Videos from '../../entities/videos/ui';
 import GirlsSelector from '../../features/girls-selector';
 
 import {Divider, Typography} from 'antd';
+import {useAppSelector} from "../../app/hooks";
+import Preloader from "../../widgets/preloader";
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -32,10 +33,13 @@ const HomePage = () => {
 
             <GirlsSelector girls={girls}/>
 
-            { isLoading && <h1>Loading videos</h1> }
+            { isLoading ? <Preloader /> : (
+                videos.length > 0 &&
+                <Videos videos={videos} girls={girls}/>
+            ) }
             { videosError && <h1>{videosError}</h1> }
 
-            <Videos videos={videos} girls={girls}/>
+
 
         </div>
     );

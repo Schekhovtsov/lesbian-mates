@@ -1,9 +1,8 @@
 import {Dropdown, Menu } from 'antd';
 import React, { useState } from 'react';
 import module from './style.module.scss';
-import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {sortVideos} from "../../entities/videos";
-import { IGirl } from '../../entities/girls';
+import {useAppDispatch, useAppSelector} from "../../app/hooks";
 
 interface IVideosFilter {
 

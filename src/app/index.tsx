@@ -10,7 +10,7 @@ import {Link, NavLink} from "react-router-dom";
 
 import logo from '../shared/images/logo.png'
 import {fetchVideos, videosSlice} from "../entities/videos";
-import {useAppDispatch} from "../hooks/redux";
+import {useAppDispatch} from "./hooks";
 
 const {Content, Header, Footer} = Layout;
 
