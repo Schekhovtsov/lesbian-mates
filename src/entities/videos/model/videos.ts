@@ -1,5 +1,6 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {videosAPI} from "../../../shared/api";
+import {videosAPIold} from "../../../shared/api";
+import {QueryDefinition} from "@reduxjs/toolkit/query";
 
 export interface IServerResponse {
     videos: IVideo[]
@@ -28,13 +29,8 @@ interface IVideosState {
     error: string;
     searchQuery: string;
     searchingNames: string[];
-    meta?: { arg: string };
+    /*meta?: { arg: string };*/
     appIsInitialized: boolean;
-}
-
-interface IFetchVideo {
-    girls: string;
-    searchQuery?: string;
 }
 
 interface ISortArgs {
@@ -43,7 +39,7 @@ interface ISortArgs {
 }
 
 interface IFetchVideoActionPayload {
-    videos: IVideo[];
+    videos: any;
     searchQuery: string
     namesOriginal: string[]
 }
@@ -80,7 +76,7 @@ export const fetchVideos = createAsyncThunk(
     'videos/fetchAll',
     async (obj: IFetchVideosGirlsNames, thunkAPI) => {
         try {
-            const response = await videosAPI.getVideos(obj.girlsFormatted)
+            const response = await videosAPIold.getVideos(obj.girlsFormatted)
             const searchQuery = obj.girlsFormatted;
             const namesOriginal = obj.girlsOriginal;
 
@@ -105,7 +101,7 @@ export const sortVideos = createAsyncThunk(
     'videos/sortVideos',
     async (args: ISortArgs, thunkAPI) => {
         try {
-            const response = await videosAPI.sortVideos(args.searchQuery, args.sortBy)
+            const response = await videosAPIold.sortVideos(args.searchQuery, args.sortBy)
 
             response.data.videos.map((obj) => {
                 obj.url = getLocaleUrl(obj);

@@ -17,7 +17,7 @@ const VideosUI: FC<VideosProps> = ({videos, girls}) => {
 
     const titleSlice = (title: string): string => {
 
-        let sliced = title.slice(0, 47);
+        let sliced = title.slice(0, 57);
         if (sliced.length < title.length) {
             sliced += '...';
         }

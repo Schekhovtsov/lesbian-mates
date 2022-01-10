@@ -4,12 +4,14 @@ import {Button, Col, Form, Row, Select} from 'antd';
 import {IGirl, setSearchingGirls} from '../../entities/girls';
 import { fetchVideos } from "../../entities/videos";
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
+import {videosAPI, videosAPIold} from "../../shared/api";
 
 interface ISelectorProps {
     girls: IGirl[]
 }
 
 const GirlsSelector: FC<ISelectorProps> = ({girls}) => {
+
 
     const dispatch = useAppDispatch();
 
@@ -53,7 +55,9 @@ const GirlsSelector: FC<ISelectorProps> = ({girls}) => {
 
 
         // делать фетчинг обычного поиска видео и внутрь передавать объект из стора с именами девочек
-        <div> <button onClick={() => {  }}>Подгрузить</button>
+        <div>
+            <button onClick={() => {  }}>Подгрузить</button>
+
             <Row className='row'>
                 <Col className='col' xs={24} xl={24}>
                     <Form
