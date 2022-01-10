@@ -2,9 +2,8 @@ import React, {FC, useState} from 'react';
 import {Button, Col, Form, Row, Select} from 'antd';
 
 import {IGirl, setSearchingGirls} from '../../entities/girls';
-import { fetchVideos } from "../../entities/videos";
+import {fetchVideos, IFetchVideosGirlsNames, videosSlice} from "../../entities/videos";
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
-import {videosAPI, videosAPIold} from "../../shared/api";
 
 interface ISelectorProps {
     girls: IGirl[]
@@ -20,6 +19,13 @@ const GirlsSelector: FC<ISelectorProps> = ({girls}) => {
 
     const {Option} = Select;
 
+    const {clearVideos} = videosSlice.actions;
+    const handleToHomePage = () => {
+
+    }
+
+    const [page, setPage] = useState(1);
+
     const children: Array<object> = [];
 
     girls.map(girl =>
@@ -27,6 +33,9 @@ const GirlsSelector: FC<ISelectorProps> = ({girls}) => {
     );
 
     const onFinish = (values: { selected: string[] }) => {
+
+        dispatch(clearVideos());
+        setPage(1);
 
         const girlsOriginal = values.selected;
 
@@ -38,25 +47,42 @@ const GirlsSelector: FC<ISelectorProps> = ({girls}) => {
 
         const girlsFormatted = formattedValues.toString().replace(/,/g, '-');
 
-        const names = {
+        const request = {
             girlsFormatted,
-            girlsOriginal
+            girlsOriginal,
+            page
         }
 
-        dispatch(setSearchingGirls(names));
-        dispatch(fetchVideos(names));
+        dispatch(setSearchingGirls(request)); // а мб и не нужен?  в видео есть тоже самое ж всё =))))))))))))
+        dispatch(fetchVideos(request));
 
-        console.log(searchingNames)
 
 
     };
+
+    const loadMoreVideos = (searchingNames: IFetchVideosGirlsNames) => {
+
+        const girlsFormatted = searchingNames.girlsFormatted;
+        const girlsOriginal = searchingNames.girlsOriginal
+
+        setPage( page + 1 )
+
+        const request = {
+            girlsFormatted,
+            girlsOriginal,
+            page,
+        }
+
+        dispatch(fetchVideos(request));
+    }
 
     return (
 
 
         // делать фетчинг обычного поиска видео и внутрь передавать объект из стора с именами девочек
         <div>
-            <button onClick={() => {  }}>Подгрузить</button>
+            Page: {page}
+            <button onClick={() => loadMoreVideos(searchingNames)}>Подгрузить</button>
 
             <Row className='row'>
                 <Col className='col' xs={24} xl={24}>

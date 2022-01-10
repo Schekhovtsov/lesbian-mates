@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {videosAPIold} from "../../../shared/api";
+import {videosAPI} from "../../../shared/api";
 import {QueryDefinition} from "@reduxjs/toolkit/query";
 
 export interface IServerResponse {
@@ -56,6 +56,7 @@ const initialState: IVideosState = {
 export interface IFetchVideosGirlsNames {
     girlsFormatted: string;
     girlsOriginal: string[];
+    page?: number,
 }
 
 const userLang = navigator.language;
@@ -76,7 +77,7 @@ export const fetchVideos = createAsyncThunk(
     'videos/fetchAll',
     async (obj: IFetchVideosGirlsNames, thunkAPI) => {
         try {
-            const response = await videosAPIold.getVideos(obj.girlsFormatted)
+            const response = await videosAPI.getVideos(obj.girlsFormatted, obj.page)
             const searchQuery = obj.girlsFormatted;
             const namesOriginal = obj.girlsOriginal;
 
@@ -87,7 +88,7 @@ export const fetchVideos = createAsyncThunk(
             return {
                 videos: response.data.videos,
                 searchQuery,
-                namesOriginal
+                namesOriginal,
             };
         }   catch(e) {
             return thunkAPI.rejectWithValue('Couldn\'t get the video')
@@ -101,7 +102,7 @@ export const sortVideos = createAsyncThunk(
     'videos/sortVideos',
     async (args: ISortArgs, thunkAPI) => {
         try {
-            const response = await videosAPIold.sortVideos(args.searchQuery, args.sortBy)
+            const response = await videosAPI.sortVideos(args.searchQuery, args.sortBy)
 
             response.data.videos.map((obj) => {
                 obj.url = getLocaleUrl(obj);
@@ -113,7 +114,6 @@ export const sortVideos = createAsyncThunk(
         }
     }
 )
-
 
 export const videosSlice = createSlice({
     name: 'videos',
@@ -128,7 +128,7 @@ export const videosSlice = createSlice({
             state.isLoading = false;
             state.appIsInitialized = true;
             state.error = '';
-            state.videos = action.payload.videos;
+            state.videos =  state.videos.concat(action.payload.videos);
             state.searchQuery = action.payload.searchQuery;
             state.searchingNames = action.payload.namesOriginal;
         },

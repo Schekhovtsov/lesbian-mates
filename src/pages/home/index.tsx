@@ -5,24 +5,15 @@ import GirlsSelector from '../../features/girls-selector';
 import {Divider, Typography} from 'antd';
 import {useAppSelector} from "../../app/hooks";
 import Preloader from "../../widgets/preloader";
-import {videosAPI} from "../../shared/api";
 
 const { Title, Paragraph, Text } = Typography;
 
 const HomePage = () => {
 
-    const zapros = 'lara-frost';
-    const { data: videosNew } = videosAPI.useFetchAllVideosQuery(zapros)
-    console.log(videosNew?.videos)
-
     const {videos, isLoading, error: videosError, appIsInitialized} =
         useAppSelector(state => state.videosReducer);
 
     const {girls} = useAppSelector(state => state.girlsReducer);
-
-    useEffect(() => {
-
-    }, [])
 
     return (
         <div>
