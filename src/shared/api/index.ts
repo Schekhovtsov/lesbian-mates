@@ -17,7 +17,7 @@ export const videosAPI = {
                 params: {
                     query: `lesbian-${girls}`,
                     page: page,
-                    per_page: 2,
+                    per_page: 20,
 
                 },
             });
@@ -30,6 +30,7 @@ export const videosAPI = {
                 params: {
                     query: `lesbian-${girls}`,
                     order: sortBy,
+                    per_page: 20,
                 },
             })
     }

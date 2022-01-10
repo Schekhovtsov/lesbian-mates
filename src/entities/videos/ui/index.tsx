@@ -1,11 +1,11 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import {Col, Row} from "antd";
 import module from "./styles.module.scss";
-import {IVideo} from "../model";
+import {fetchVideos, IFetchVideosGirlsNames, IVideo} from "../model";
 import cn from 'classnames';
 import VideosFilter from "../../../features/videos-filter";
 import {IGirl} from "../../girls";
-import {useAppSelector} from "../../../app/hooks";
+import {useAppDispatch, useAppSelector} from "../../../app/hooks";
 
 
 interface VideosProps {
@@ -15,6 +15,12 @@ interface VideosProps {
 
 const VideosUI: FC<VideosProps> = ({videos, girls}) => {
 
+    const dispatch = useAppDispatch();
+    const [page, setPage] = useState(2);
+
+    const {searchingNames} =
+        useAppSelector(state => state.girlsReducer);
+
     const titleSlice = (title: string): string => {
 
         let sliced = title.slice(0, 57);
@@ -22,6 +28,24 @@ const VideosUI: FC<VideosProps> = ({videos, girls}) => {
             sliced += '...';
         }
         return sliced;
+    }
+
+    const loadMoreVideos = (searchingNames: IFetchVideosGirlsNames) => {
+
+        alert('works')
+
+        const girlsFormatted = searchingNames.girlsFormatted;
+        const girlsOriginal = searchingNames.girlsOriginal
+
+        setPage( page + 1 )
+
+        const request = {
+            girlsFormatted,
+            girlsOriginal,
+            page,
+        }
+
+        dispatch(fetchVideos(request));
     }
 
     return (
@@ -116,6 +140,16 @@ const VideosUI: FC<VideosProps> = ({videos, girls}) => {
                     )
                 }
 
+            </Row>
+
+            <Row className='row' gutter={[14, 8]}>
+                <Col className={cn('col', module.loadMore)} xs={24} sm={24} md={24} xl={24} >
+                    <div onClick={() => loadMoreVideos(searchingNames)}>
+                        <span>
+                            Load more videos
+                        </span>
+                    </div>
+                </Col>
             </Row>
 
 
