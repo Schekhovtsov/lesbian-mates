@@ -8,20 +8,13 @@ import {withProviders} from './providers';
 import {Routing} from '../pages';
 import {Link, NavLink} from "react-router-dom";
 
-import logo from '../shared/images/logo.png'
+import logo from '../shared/assets/logo.png'
 import {fetchVideos, videosSlice} from "../entities/videos";
 import {useAppDispatch} from "./hooks";
 
 const {Content, Header, Footer} = Layout;
 
 const App = () => {
-
-    const {clearVideos} = videosSlice.actions;
-    const dispatch = useAppDispatch();
-
-    const handleToHomePage = () => {
-        dispatch(clearVideos())
-    }
 
     return (
 
@@ -32,7 +25,7 @@ const App = () => {
                      xs={24} sm={24} md={20} xl={20} xxl={16}>
                     <PageHeader>
                         <a href='/'>
-                            <div className='header logo' onClick={() => handleToHomePage()}>
+                            <div className='header logo'>
                                 <img src={logo} alt='lesbian-mates logo' />
                             </div>
                         </a>

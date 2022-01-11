@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {Col, Row} from "antd";
 import module from "./styles.module.scss";
 import {fetchVideos, IFetchVideosGirlsNames, IVideo} from "../model";
@@ -6,17 +6,20 @@ import cn from 'classnames';
 import VideosFilter from "../../../features/videos-filter";
 import {IGirl} from "../../girls";
 import {useAppDispatch, useAppSelector} from "../../../app/hooks";
+import Preloader from "../../../widgets/preloader";
 
 
 interface VideosProps {
     videos: IVideo[],
-    girls: IGirl[],
+    isLoading: boolean
 }
 
-const VideosUI: FC<VideosProps> = ({videos, girls}) => {
+const VideosUI: FC<VideosProps> = ({videos, isLoading}) => {
 
     const dispatch = useAppDispatch();
-    const [page, setPage] = useState(2);
+    const [page, setPage] = useState(1);
+
+    const {girls} = useAppSelector(state => state.girlsReducer);
 
     const {searchingNames} =
         useAppSelector(state => state.girlsReducer);
@@ -32,8 +35,6 @@ const VideosUI: FC<VideosProps> = ({videos, girls}) => {
 
     const loadMoreVideos = (searchingNames: IFetchVideosGirlsNames) => {
 
-        alert('works')
-
         const girlsFormatted = searchingNames.girlsFormatted;
         const girlsOriginal = searchingNames.girlsOriginal
 
@@ -48,41 +49,33 @@ const VideosUI: FC<VideosProps> = ({videos, girls}) => {
         dispatch(fetchVideos(request));
     }
 
+    useEffect(() => {
+        setPage(2)
+    }, [])
+
     return (
         <div>
             {
                 (videos.length > 0)
                     ? (<Row className='row'>
-{/*                        <Col className='col' xs={24} xl={24}>
-                            <h1>Results:</h1>
-                        </Col>*/}
                         <Col className='col' xs={24} xl={24}>
                             <VideosFilter />
                         </Col>
                     </Row>)
-                    : null /*<Col className='col' xs={24} xl={24}>
-                        <h1>Videos not found</h1>
-                    </Col>*/
+                    : null
             }
 
             <Row className='row' gutter={[14, 8]}>
                 {
 
-
                     videos && videos.map((obj, index) =>
                         (
-
-
 
                             <Col className={cn('col', module.videos)} xs={24} sm={12} md={8} xl={6} key={obj.id}>
                                 <div className={module.videoBlock}>
                                     <div className={module.content}>
 
-
-
                                             <div className={module.title}>
-                                                {/*{obj.title}*/}
-
                                                 <a href={ obj.url }
                                                    title={obj.title}
                                                    target='_blank'>
@@ -94,7 +87,7 @@ const VideosUI: FC<VideosProps> = ({videos, girls}) => {
                                         <a href={ obj.url }
                                            title={obj.title}
                                            target='_blank'>
-                                            <div style={{backgroundImage: "url(" + {/*obj.default_thumb.src*/} + ")",
+                                            <div style={{backgroundImage: "url(" + obj.default_thumb.src + ")",
                                                         backgroundSize: "cover" }}
                                                 className={module.video}>
 
@@ -110,24 +103,6 @@ const VideosUI: FC<VideosProps> = ({videos, girls}) => {
                                             </div>
                                         </a>
 
-                                       {/* { tagsToName(obj.title)?.map(item => {
-                                            titleNamesArray.push(item)
-                                        } ) }
-                                        { tagsToName(obj.keywords)?.map(item => {
-                                            keysNamesArray.push(item)
-                                        } ) }
-
-                                        <div className={module.tagsBlock}>
-                                            { getUniqueNames(titleNamesArray, keysNamesArray).map(item => (
-                                                <div className={module.tag}>
-                                                    {item}
-                                                </div>
-                                            )) }
-                                        </div>
-
-                                        { titleNamesArray.length = 0 }
-                                        { keysNamesArray.length = 0 }*/}
-
                                         <div className={module.info}>
                                             <div>Added: {obj.added.slice(0, 10)}</div>
                                             <div>Rate: {obj.rate}</div>
@@ -138,21 +113,27 @@ const VideosUI: FC<VideosProps> = ({videos, girls}) => {
                             </Col>
                         )
                     )
+
                 }
 
             </Row>
 
             <Row className='row' gutter={[14, 8]}>
-                <Col className={cn('col', module.loadMore)} xs={24} sm={24} md={24} xl={24} >
-                    <div onClick={() => loadMoreVideos(searchingNames)}>
-                        <span>
-                            Load more videos
-                        </span>
-                    </div>
+                <Col className='col'
+                     xs={24} sm={24} md={24} xl={24}>
+                        { isLoading && <Preloader /> }
                 </Col>
             </Row>
 
-
+            <Row className='row' gutter={[14, 8]}>
+                <Col className={cn('col', module.loadMore)}
+                     xs={24} sm={24} md={24} xl={24}
+                     onClick={() => loadMoreVideos(searchingNames)} >
+                        <span>
+                            Load more videos
+                        </span>
+                </Col>
+            </Row>
 
         </div>
     );

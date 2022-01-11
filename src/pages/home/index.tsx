@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Videos from '../../entities/videos/ui';
 import GirlsSelector from '../../features/girls-selector';
 
@@ -6,14 +6,12 @@ import {Divider, Typography} from 'antd';
 import {useAppSelector} from "../../app/hooks";
 import Preloader from "../../widgets/preloader";
 
-const { Title, Paragraph, Text } = Typography;
+const { Title, Paragraph } = Typography;
 
 const HomePage = () => {
 
     const {videos, isLoading, error: videosError, appIsInitialized} =
         useAppSelector(state => state.videosReducer);
-
-    const {girls} = useAppSelector(state => state.girlsReducer);
 
     return (
         <div>
@@ -31,16 +29,14 @@ const HomePage = () => {
                 )
             }
 
-            <GirlsSelector girls={girls}/>
+            <GirlsSelector />
 
             { isLoading && <Preloader /> }
 
             { (videos.length === 0 && appIsInitialized) && <h1>Lesbian videos not found</h1> }
-            { videos.length > 0 && <Videos videos={videos} girls={girls} /> }
+            { videos.length > 0 && <Videos videos={videos} isLoading={isLoading} /> }
 
             { videosError && <h1>{videosError}</h1> }
-
-
 
         </div>
     );

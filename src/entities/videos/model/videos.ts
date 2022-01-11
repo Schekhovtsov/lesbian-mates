@@ -96,8 +96,6 @@ export const fetchVideos = createAsyncThunk(
     }
 )
 
-//export const clearVideos =
-
 export const sortVideos = createAsyncThunk(
     'videos/sortVideos',
     async (args: ISortArgs, thunkAPI) => {

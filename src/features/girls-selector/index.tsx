@@ -6,13 +6,14 @@ import {fetchVideos, IFetchVideosGirlsNames, videosSlice} from "../../entities/v
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
 
 interface ISelectorProps {
-    girls: IGirl[]
+
 }
 
-const GirlsSelector: FC<ISelectorProps> = ({girls}) => {
-
+const GirlsSelector: FC<ISelectorProps> = () => {
 
     const dispatch = useAppDispatch();
+
+    const {girls} = useAppSelector(state => state.girlsReducer);
 
     const {Option} = Select;
 
@@ -48,8 +49,6 @@ const GirlsSelector: FC<ISelectorProps> = ({girls}) => {
 
         dispatch(setSearchingGirls(request));
         dispatch(fetchVideos(request)); // а мб и не нужен?  в girls есть тоже самое
-
-        if (page === 1) { setPage( page + 1 ) }
 
     };
 
