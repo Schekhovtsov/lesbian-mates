@@ -1,6 +1,5 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {videosAPI} from "../../../shared/api";
-import {QueryDefinition} from "@reduxjs/toolkit/query";
 
 export interface IServerResponse {
     videos: IVideo[]
@@ -28,20 +27,17 @@ interface IVideosState {
     isLoading: boolean;
     error: string;
     searchQuery: string;
-    searchingNames: string[];
-    /*meta?: { arg: string };*/
     appIsInitialized: boolean;
-}
-
-interface ISortArgs {
-    searchQuery: string;
     sortBy: string;
+    isFetchMode: boolean,
+    isSortMode: boolean;
 }
 
 interface IFetchVideoActionPayload {
     videos: any;
-    searchQuery: string
-    namesOriginal: string[]
+    searchQuery: string;
+    page: number,
+    sortBy: string;
 }
 
 const initialState: IVideosState = {
@@ -49,14 +45,21 @@ const initialState: IVideosState = {
     isLoading: false,
     error: '',
     searchQuery: '',
-    searchingNames: [],
     appIsInitialized: false,
+    sortBy: 'latest',
+    isFetchMode: false,
+    isSortMode: false,
 }
 
-export interface IFetchVideosGirlsNames {
-    girlsFormatted: string;
-    girlsOriginal: string[];
-    page?: number,
+export interface ISearchingGirlsNames {
+    girlsFormatted: string,
+    girlsOriginal: string[],
+}
+
+interface IFetchVideosRequest {
+    searchQuery: string;
+    sortBy?: string;
+    page: number;
 }
 
 const userLang = navigator.language;
@@ -75,11 +78,9 @@ const getLocaleUrl = (obj: IVideo) => {
 
 export const fetchVideos = createAsyncThunk(
     'videos/fetchAll',
-    async (obj: IFetchVideosGirlsNames, thunkAPI) => {
+    async (args: IFetchVideosRequest, thunkAPI) => {
         try {
-            const response = await videosAPI.getVideos(obj.girlsFormatted, obj.page)
-            const searchQuery = obj.girlsFormatted;
-            const namesOriginal = obj.girlsOriginal;
+            const response = await videosAPI.getVideos(args.searchQuery, args.page)
 
             response.data.videos.map((obj) => {
                 obj.url = getLocaleUrl(obj);
@@ -87,8 +88,7 @@ export const fetchVideos = createAsyncThunk(
 
             return {
                 videos: response.data.videos,
-                searchQuery,
-                namesOriginal,
+                searchQuery: args.searchQuery,
             };
         }   catch(e) {
             return thunkAPI.rejectWithValue('Couldn\'t get the video')
@@ -98,15 +98,18 @@ export const fetchVideos = createAsyncThunk(
 
 export const sortVideos = createAsyncThunk(
     'videos/sortVideos',
-    async (args: ISortArgs, thunkAPI) => {
+    async (args: IFetchVideosRequest, thunkAPI) => {
         try {
-            const response = await videosAPI.sortVideos(args.searchQuery, args.sortBy)
+            const response = await videosAPI.sortVideos(args.searchQuery, args.page, args.sortBy)
 
             response.data.videos.map((obj) => {
                 obj.url = getLocaleUrl(obj);
             })
 
-            return response.data.videos;
+            return {
+                videos: response.data.videos,
+                sortBy: args.sortBy,
+            };
         }   catch(e) {
             return thunkAPI.rejectWithValue('Couldn\'t get the video')
         }
@@ -127,8 +130,11 @@ export const videosSlice = createSlice({
             state.appIsInitialized = true;
             state.error = '';
             state.videos =  state.videos.concat(action.payload.videos);
+
             state.searchQuery = action.payload.searchQuery;
-            state.searchingNames = action.payload.namesOriginal;
+
+            state.isFetchMode = true;
+            state.isSortMode = false;
         },
         [fetchVideos.pending.type]: (state) => {
             state.isLoading = true;
@@ -137,10 +143,13 @@ export const videosSlice = createSlice({
             state.isLoading = false;
             state.error = action.payload;
         },
-        [sortVideos.fulfilled.type]: (state, action: PayloadAction<IVideo[]>) => {
+        [sortVideos.fulfilled.type]: (state, action: PayloadAction<IFetchVideoActionPayload>) => {
             state.isLoading = false;
             state.error = '';
-            state.videos = action.payload;
+            state.videos =  state.videos.concat(action.payload.videos);
+            state.sortBy = action.payload.sortBy;
+            state.isFetchMode = false;
+            state.isSortMode = true;
         },
         [sortVideos.pending.type]: (state) => {
             state.isLoading = true;

@@ -1,10 +1,9 @@
 import React, {FC, useEffect, useState} from 'react';
 import {Col, Row} from "antd";
 import module from "./styles.module.scss";
-import {fetchVideos, IFetchVideosGirlsNames, IVideo} from "../model";
+import {fetchVideos, ISearchingGirlsNames, IVideo, sortVideos} from "../model";
 import cn from 'classnames';
 import VideosFilter from "../../../features/videos-filter";
-import {IGirl} from "../../girls";
 import {useAppDispatch, useAppSelector} from "../../../app/hooks";
 import Preloader from "../../../widgets/preloader";
 
@@ -19,9 +18,9 @@ const VideosUI: FC<VideosProps> = ({videos, isLoading}) => {
     const dispatch = useAppDispatch();
     const [page, setPage] = useState(1);
 
-    const {girls} = useAppSelector(state => state.girlsReducer);
+    const {isFetchMode, isSortMode, sortBy} = useAppSelector(state => state.videosReducer);
 
-    const {searchingNames} =
+    const { searchingNames } =
         useAppSelector(state => state.girlsReducer);
 
     const titleSlice = (title: string): string => {
@@ -33,20 +32,21 @@ const VideosUI: FC<VideosProps> = ({videos, isLoading}) => {
         return sliced;
     }
 
-    const loadMoreVideos = (searchingNames: IFetchVideosGirlsNames) => {
+    const loadMoreVideos = (searchingNames: ISearchingGirlsNames) => {
 
-        const girlsFormatted = searchingNames.girlsFormatted;
-        const girlsOriginal = searchingNames.girlsOriginal
+        const searchQuery = searchingNames.girlsFormatted;
 
         setPage( page + 1 )
 
         const request = {
-            girlsFormatted,
-            girlsOriginal,
+            searchQuery,
             page,
+            sortBy,
         }
 
-        dispatch(fetchVideos(request));
+        if (isFetchMode) { dispatch(fetchVideos(request)); }
+        if (isSortMode) { dispatch(sortVideos(request)); }
+
     }
 
     useEffect(() => {

@@ -1,7 +1,7 @@
 import {Dropdown, Menu } from 'antd';
 import React, { useState } from 'react';
 import module from './style.module.scss';
-import {sortVideos} from "../../entities/videos";
+import {sortVideos, videosSlice} from "../../entities/videos";
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
 
 interface IVideosFilter {
@@ -12,10 +12,12 @@ const VideosFilter: React.FC<IVideosFilter> = () => {
 
     const dispatch = useAppDispatch();
 
-    const {searchQuery} =
+    const { searchQuery, sortBy } =
         useAppSelector(state => state.videosReducer);
 
     const [activeFilter, setActiveFilter] = useState('latest')
+
+    const {clearVideos} = videosSlice.actions;
 
     const sortTypes = [
         { name: 'popular', value: 'most-popular' },
@@ -27,10 +29,10 @@ const VideosFilter: React.FC<IVideosFilter> = () => {
         { name: 'top monthly', value: 'top-monthly' },
     ]
 
-    const handleSortTypeButton = (name: string, sortBy: string) => {
-        // здесь первый аргумент я хочу забирать из стора
+    const handleSortTypeButton = (name: string, activeFilter: string, page: number) => {
+        dispatch(clearVideos());
         setActiveFilter(name)
-        dispatch(sortVideos({searchQuery, sortBy}))
+        dispatch(sortVideos({searchQuery, sortBy: activeFilter, page}))
     }
 
     const menu = (
@@ -39,7 +41,7 @@ const VideosFilter: React.FC<IVideosFilter> = () => {
                 sortTypes.map((obj) =>
                     <Menu.Item key={obj.value}>
                         <span className="noopener noreferrer"
-                              onClick={() => { handleSortTypeButton(obj.name, obj.value) }}>
+                              onClick={() => { handleSortTypeButton(obj.name, obj.value, 1) }}>
                             {obj.name}
                         </span>
                     </Menu.Item>

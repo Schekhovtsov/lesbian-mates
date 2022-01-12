@@ -16,7 +16,6 @@
           .videos .videoBlock .content .title a:hover {
             color: royalblue; }
       .videos .videoBlock .content .video {
-        background-color: greenyellow;
         width: 100%;
         height: 160px;
         display: flex;

@@ -1,8 +1,5 @@
-import {createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
-import {IServerResponse, IVideo} from "../../entities/videos";
-import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
-import * as buffer from "buffer";
+import {IServerResponse} from "../../entities/videos";
 
 
 let base_url = 'https://de.eporner.com/api/v2/video/search/';
@@ -10,12 +7,12 @@ let base_url = 'https://de.eporner.com/api/v2/video/search/';
 
 export const videosAPI = {
 
-    getVideos(girls: string, page: number = 1) {
+    getVideos(searchQuery: string, page: number = 1) {
 
          return axios.get<IServerResponse>(`${base_url}?&format=json`,
             {
                 params: {
-                    query: `lesbian-${girls}`,
+                    query: `lesbian-${searchQuery}`,
                     page: page,
                     per_page: 20,
 
@@ -24,12 +21,13 @@ export const videosAPI = {
 
     },
 
-    sortVideos(girls: string, sortBy: string) {
+    sortVideos(searchQuery: string, page: number, sortBy?: string) {
         return axios.get<IServerResponse>(`${base_url}?&format=json`,
             {
                 params: {
-                    query: `lesbian-${girls}`,
+                    query: `lesbian-${searchQuery}`,
                     order: sortBy,
+                    page: page,
                     per_page: 20,
                 },
             })

@@ -2,7 +2,7 @@ import React, {FC, useState} from 'react';
 import {Button, Col, Form, Row, Select} from 'antd';
 
 import {IGirl, setSearchingGirls} from '../../entities/girls';
-import {fetchVideos, IFetchVideosGirlsNames, videosSlice} from "../../entities/videos";
+import {fetchVideos, videosSlice} from "../../entities/videos";
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
 
 interface ISelectorProps {
@@ -41,14 +41,19 @@ const GirlsSelector: FC<ISelectorProps> = () => {
 
         const girlsFormatted = formattedValues.toString().replace(/,/g, '-');
 
-        const request = {
+        const requestGirls = {
             girlsFormatted,
             girlsOriginal,
             page
         }
 
-        dispatch(setSearchingGirls(request));
-        dispatch(fetchVideos(request)); // а мб и не нужен?  в girls есть тоже самое
+        const requestVideos = {
+            searchQuery: girlsFormatted,
+            page
+        }
+
+        dispatch(setSearchingGirls(requestGirls));
+        dispatch(fetchVideos(requestVideos));
 
     };
 
