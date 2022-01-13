@@ -1,6 +1,6 @@
 # Lesbian mates
 
-Live-demo: https://61ddb4832b3ea080df441498--lesbian-mates.netlify.app/
+Live-demo: https://lesbian-mates.netlify.app/
 
 The project is a service that allows you to see if specific girls were filmed in porn together as lesbians.  
 

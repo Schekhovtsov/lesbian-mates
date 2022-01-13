@@ -71,31 +71,24 @@ const VideosUI: FC<VideosProps> = ({videos, isLoading}) => {
         videoRefs.push(React.createRef());
     });
 
-    const getSlideshow = (obj: IVideo, index: number) => {
+    function sleep(ms: number) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
 
-        //videoRefs[index].current.style.backgroundColor = 'red';
+    const startSlideshow = (obj: IVideo, index: number, key: number) => {
 
+        setTimeout(() => {
+            if (key < 9) {
+                videoRefs[index].current.style.backgroundImage = "url(" + getVideoImages(obj)[key] + ")";
+                key += 1;
+                startSlideshow(obj, index, key)
+            }
+        }, 1000)
 
-        let i = 0; // передавать в объекте функции вместе вие - .videos и .key
-        videoRefs[index].current.style.backgroundImage = "url(" + getVideoImages(obj)[i] + ")";
+    }
 
-        setTimeout(() => {}, 2000)
-        videoRefs[index].current.style.backgroundImage = "url(" + getVideoImages(obj)[1] + ")";
-
-        setTimeout(() => {}, 2000)
-        videoRefs[index].current.style.backgroundImage = "url(" + getVideoImages(obj)[2] + ")";
-
-        /*if (i < getVideoImages(obj).length - 1) {
-            i++;
-        }   else    {
-            i = 0;
-        };
-        setTimeout((obj, index) => {
-            getSlideshow(obj, index);
-        }, 2000);*/
-
-        console.log('ok')
-
+    const endSlideshow = (obj: IVideo, index: number, key: number) => {
+        videoRefs[index].current.style.backgroundImage = "url(" + getVideoImages(obj)[key] + ")";
     }
 
 
@@ -135,16 +128,19 @@ const VideosUI: FC<VideosProps> = ({videos, isLoading}) => {
                                             </div>
 
 
-                                        {/*<a href={ obj.url }
+                                        <a href={ obj.url }
                                            title={obj.title}
-                                           target='_blank'>*/}
+                                           target='_blank'>
 
 
-                                            <div style={{   //backgroundImage: "url(" + obj.default_thumb.src + ")"   ,
+                                            <div style={{   backgroundImage: "url(" + obj.default_thumb.src + ")"   ,
                                                         backgroundSize: "cover" }}
                                                 className={module.video}
                                                  ref={videoRefs[index]}
-                                                 onMouseMove={() => {getSlideshow(obj, index)}}>
+                                                 onMouseEnter={() => {startSlideshow(obj, index, 0)}}
+                                                 onMouseLeave={() => {endSlideshow(obj, index, 0)}}
+                                                 onTouchStart={() => {startSlideshow(obj, index, 0)}}
+                                                 onTouchEnd={() => {endSlideshow(obj, index, 0)}} >
 
                                                    <div className={module.infoTimeAndView}>
                                                         <div className={module.cornerBlock}>
@@ -157,7 +153,7 @@ const VideosUI: FC<VideosProps> = ({videos, isLoading}) => {
 
                                             </div>
 
-                                        {/*</a>*/}
+                                        </a>
 
                                         <div className={module.info}>
                                             <div>Added: {obj.added.slice(0, 10)}</div>
