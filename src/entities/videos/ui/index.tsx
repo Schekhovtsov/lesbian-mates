@@ -63,32 +63,33 @@ const VideosUI: FC<VideosProps> = ({videos, isLoading}) => {
 
     }
 
-    const slideshowBlock = useRef<HTMLDivElement>(null);
-
     const videoRefs: any = [];
 
     videos.forEach(_ => {
         videoRefs.push(React.createRef());
     });
 
-    function sleep(ms: number) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
+    const [isPlayThumbnails, setIsPlayThumbnails] = useState(true)
 
     const startSlideshow = (obj: IVideo, index: number, key: number) => {
 
-        setTimeout(() => {
-            if (key < 9) {
-                videoRefs[index].current.style.backgroundImage = "url(" + getVideoImages(obj)[key] + ")";
-                key += 1;
-                startSlideshow(obj, index, key)
-            }
-        }, 1000)
+            setTimeout(() => {
+                if (isPlayThumbnails) {
+                    if (key < 9) {
+                        videoRefs[index].current.style.backgroundImage = "url(" + getVideoImages(obj)[key] + ")";
+                        key += 1;
+                        startSlideshow(obj, index, key)
+                    } else {
+                        startSlideshow(obj, index, 0)
+                    }
+                }
+            }, 500)
+
 
     }
 
     const endSlideshow = (obj: IVideo, index: number, key: number) => {
-        videoRefs[index].current.style.backgroundImage = "url(" + getVideoImages(obj)[key] + ")";
+        setIsPlayThumbnails(false)
     }
 
 
@@ -116,7 +117,7 @@ const VideosUI: FC<VideosProps> = ({videos, isLoading}) => {
                         (
 
                             <Col className={cn('col', module.videos)} xs={24} sm={12} md={8} xl={6} key={obj.id}>
-                                <div className={module.videoBlock}>
+                                <div className={module.videoBlock} onMouseMove={() => { setIsPlayThumbnails(true) }}>
                                     <div className={module.content}>
 
                                             <div className={module.title}>
