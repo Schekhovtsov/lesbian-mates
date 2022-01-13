@@ -16,6 +16,11 @@ export interface IVideo {
         height: number,
         src: string
     },
+    thumbs: {
+        [key: number]: {
+            src: string
+        }
+    }
     length_min: string,
     rate: number,
     views: number,
@@ -72,6 +77,8 @@ const getLocaleUrl = (obj: IVideo) => {
         case 'ru': url = obj.url.replace('www', 'de'); break;
         default: url = obj.url;
     }
+
+    //console.log(userLang)
 
     return url;
 }
