@@ -85,9 +85,9 @@ const getLocaleUrl = (obj: IVideo) => {
 
 export const fetchVideos = createAsyncThunk(
     'videos/fetchAll',
-    async (args: IFetchVideosRequest, thunkAPI) => {
+    async ({ searchQuery, page }: IFetchVideosRequest, thunkAPI) => {
         try {
-            const response = await videosAPI.getVideos(args.searchQuery, args.page)
+            const response = await videosAPI.getVideos(searchQuery, page)
 
             response.data.videos.map((obj) => {
                 obj.url = getLocaleUrl(obj);
@@ -95,8 +95,9 @@ export const fetchVideos = createAsyncThunk(
 
             return {
                 videos: response.data.videos,
-                searchQuery: args.searchQuery,
+                searchQuery: searchQuery,
             };
+
         }   catch(e) {
             return thunkAPI.rejectWithValue('Couldn\'t get the video')
         }
@@ -105,9 +106,9 @@ export const fetchVideos = createAsyncThunk(
 
 export const sortVideos = createAsyncThunk(
     'videos/sortVideos',
-    async (args: IFetchVideosRequest, thunkAPI) => {
+    async ({ searchQuery, page, sortBy }: IFetchVideosRequest, thunkAPI) => {
         try {
-            const response = await videosAPI.sortVideos(args.searchQuery, args.page, args.sortBy)
+            const response = await videosAPI.sortVideos(searchQuery, page, sortBy)
 
             response.data.videos.map((obj) => {
                 obj.url = getLocaleUrl(obj);
@@ -115,8 +116,9 @@ export const sortVideos = createAsyncThunk(
 
             return {
                 videos: response.data.videos,
-                sortBy: args.sortBy,
+                sortBy,
             };
+
         }   catch(e) {
             return thunkAPI.rejectWithValue('Couldn\'t get the video')
         }
