@@ -138,7 +138,7 @@ export const videosSlice = createSlice({
             state.isLoading = false;
             state.appIsInitialized = true;
             state.error = '';
-            state.videos =  state.videos.concat(action.payload.videos);
+            state.videos =  [...state.videos, ...action.payload.videos];
 
             state.searchQuery = action.payload.searchQuery;
 

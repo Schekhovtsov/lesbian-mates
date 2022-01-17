@@ -73,7 +73,7 @@ const VideosUI: FC<VideosProps> = ({videos, isLoading}) => {
 
     const startSlideshow = (obj: IVideo, index: number, key: number) => {
 
-            setTimeout(() => {
+/*            setTimeout(() => {
                 if (isPlayThumbnails) {
                     if (key < 9) {
                         videoRefs[index].current.style.backgroundImage = "url(" + getVideoImages(obj)[key] + ")";
@@ -83,7 +83,7 @@ const VideosUI: FC<VideosProps> = ({videos, isLoading}) => {
                         startSlideshow(obj, index, 0)
                     }
                 }
-            }, 500)
+            }, 500)*/
 
 
     }

@@ -15,9 +15,10 @@ const VideosFilter: React.FC<IVideosFilter> = () => {
     const { searchQuery, sortBy } =
         useAppSelector(state => state.videosReducer);
 
-    const [activeFilter, setActiveFilter] = useState('latest')
+    const [activeFilter, setActiveFilter] = useState('')
 
     const {clearVideos} = videosSlice.actions;
+
 
     const sortTypes = [
         { name: 'popular', value: 'most-popular' },
@@ -56,7 +57,7 @@ const VideosFilter: React.FC<IVideosFilter> = () => {
 
             <Dropdown overlay={menu}>
                 <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-                    {activeFilter}
+                    { sortBy }
                 </a>
             </Dropdown>
 

@@ -1,4 +1,7 @@
 @import url(antd/dist/antd.css);
+body {
+  background-color: #F0F2F5; }
+
 .header {
   background: white; }
   .header .headerContent {
