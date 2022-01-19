@@ -17,7 +17,7 @@ const HomePage = () => {
         <div>
 
             {
-                videos.length === 0 && (
+                (videos.length === 0 && !appIsInitialized) && (
                     <div>
                         <Title>Welcome to lesbian-mates</Title>
                         <Title level={3}>Did girls do porn together?</Title>
@@ -33,7 +33,7 @@ const HomePage = () => {
 
             { isLoading && <Preloader /> }
 
-            { (videos.length === 0 && appIsInitialized) && <h1>Lesbian videos not found</h1> }
+            { (videos.length === 0 && appIsInitialized && !isLoading) && <h1>Lesbian videos not found</h1> }
             { videos.length > 0 && <Videos videos={videos} isLoading={isLoading} /> }
 
             { videosError && <h1>{videosError}</h1> }

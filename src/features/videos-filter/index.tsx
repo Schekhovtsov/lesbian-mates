@@ -11,14 +11,10 @@ interface IVideosFilter {
 const VideosFilter: React.FC<IVideosFilter> = () => {
 
     const dispatch = useAppDispatch();
+    const {clearVideos} = videosSlice.actions;
 
     const { searchQuery, sortBy } =
         useAppSelector(state => state.videosReducer);
-
-    const [activeFilter, setActiveFilter] = useState('')
-
-    const {clearVideos} = videosSlice.actions;
-
 
     const sortTypes = [
         { name: 'popular', value: 'most-popular' },
@@ -30,10 +26,9 @@ const VideosFilter: React.FC<IVideosFilter> = () => {
         { name: 'top monthly', value: 'top-monthly' },
     ]
 
-    const handleSortTypeButton = (name: string, activeFilter: string, page: number) => {
+    const handleSortTypeButton = (name: string, value: string, page: number) => {
         dispatch(clearVideos());
-        setActiveFilter(name)
-        dispatch(sortVideos({searchQuery, sortBy: activeFilter, page}))
+        dispatch(sortVideos({searchQuery, sortBy: value, page}))
     }
 
     const menu = (
