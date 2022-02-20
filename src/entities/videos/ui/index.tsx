@@ -178,15 +178,20 @@ const VideosUI: FC<VideosProps> = ({videos, isLoading}) => {
                 </Col>
             </Row>
 
-            <Row className='row' gutter={[14, 8]}>
-                <Col className={cn('col', module.loadMore)}
-                     xs={24} sm={24} md={24} xl={24}
-                     onClick={() => loadMoreVideos(searchingNames)} >
-                        <span>
-                            Load more videos
-                        </span>
-                </Col>
-            </Row>
+            {
+                videos.length > 10 &&
+                <Row className='row' gutter={[14, 8]}>
+                    <Col className={cn('col', module.loadMore)}
+                        xs={24} sm={24} md={24} xl={24}
+                        onClick={() => loadMoreVideos(searchingNames)} >
+                            <span>
+                                Load more videos
+                            </span>
+                    </Col>
+                </Row>
+            }
+
+            
 
         </div>
     );
