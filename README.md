@@ -1,4 +1,4 @@
-# Lesbian mates
+# Lesbian mates (18+)
 
 Live-demo: https://lesbian-mates.netlify.app/
 
